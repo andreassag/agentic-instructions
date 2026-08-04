@@ -1,0 +1,38 @@
+name: systems-rust
+version: 1.0.0
+description: Agent for systems programming in Rust with CLI tooling context.
+
+instructions:
+  agent:
+    - agent/safety.md
+    - agent/communication.md
+  tech:
+    - tech/rust.md
+    - tech/bash.md
+  context:
+    - context/cli.md
+
+skills:
+  - git/commit-lint.sh
+  - test/coverage-report.sh
+
+tools:
+  required:
+    - rtk
+    - graphify
+  optional:
+    - qmd
+    - obsidian
+
+platforms:
+  default:
+    - claude
+    - copilot
+    - antigravity
+  supported:
+    - claude
+    - copilot
+    - antigravity
+    - vibe
+    - codex
+

@@ -1,0 +1,21 @@
+hub — agentic-instructions CLI
+https://github.com/exterex/agentic-instructions
+
+USAGE:
+  hub <subcommand> [flags]
+
+SUBCOMMANDS:
+  init    Initialize hub in the current git repository
+  update  Re-apply hub configuration (hash-gated, rewrites only changed files)
+  load    Load a named pre-composed agent
+  clean   Remove hub-managed files from the current repository
+  status  Show current hub state
+
+GLOBAL FLAGS:
+  --hub-home PATH    Override HUB_HOME
+  --dry-run          Print actions without executing
+  --verbose          Enable trace logging
+  --no-color         Disable ANSI output
+  --no-strip         Skip rtk token stripping
+
+Run 'hub <subcommand> --help' for subcommand-specific flags.

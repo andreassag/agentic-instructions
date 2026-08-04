@@ -1,0 +1,42 @@
+name: python-bio
+version: 1.0.0
+description: Python scripting agent for biological data analysis — Biopython, pandas, and bioinformatics tooling.
+
+instructions:
+  agent:
+    - agent/safety.md
+    - agent/planning.md
+    - agent/debugging.md
+    - agent/communication.md
+  tech:
+    - tech/python.md
+    - tech/bash.md
+    - tech/docker.md
+  context:
+    - context/data-pipeline.md
+    - context/ml-experiment.md
+
+skills:
+  - git/commit-lint.sh
+  - test/coverage-report.sh
+  - deps/audit.sh
+  - debug/repro-test.sh
+
+tools:
+  required:
+    - rtk
+  optional:
+    - graphify
+    - qmd
+
+platforms:
+  default:
+    - claude
+    - antigravity
+  supported:
+    - claude
+    - copilot
+    - antigravity
+    - vibe
+    - codex
+

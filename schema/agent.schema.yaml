@@ -1,0 +1,99 @@
+# Agent Manifest Schema
+# Every agent.yaml in /agents/ must conform to this structure.
+# Required fields: name, version, instructions.agent, platforms.default, platforms.supported
+
+type: object
+required:
+  - name
+  - version
+  - description
+  - instructions
+  - platforms
+
+properties:
+  name:
+    type: string
+    pattern: "^[a-z0-9-]+$"
+    description: "Unique agent identifier (lowercase, hyphens only)"
+
+  version:
+    type: string
+    pattern: "^\\d+\\.\\d+\\.\\d+$"
+    description: "Semantic version (e.g. 1.0.0)"
+
+  description:
+    type: string
+    description: "Human-readable description of this agent's purpose"
+
+  extends:
+    type: string
+    description: "Optional: name of another agent to inherit from (delta override)"
+
+  instructions:
+    type: object
+    required:
+      - agent
+    properties:
+      agent:
+        type: array
+        items:
+          type: string
+        description: "Paths relative to instructions/ — behavioral rules"
+      tech:
+        type: array
+        items:
+          type: string
+        description: "Paths relative to instructions/ — stack-specific guidelines"
+      context:
+        type: array
+        items:
+          type: string
+        description: "Paths relative to instructions/ — project-type context"
+      extra:
+        type: array
+        items:
+          type: string
+        description: "Additional instruction paths relative to HUB_HOME"
+
+  skills:
+    type: array
+    items:
+      type: string
+    description: "Skill script paths relative to skills/ (e.g. git/commit-lint.sh)"
+
+  tools:
+    type: object
+    description: >
+      Runtime tools the LLM agent should use or be aware of.
+      'required' tools must be installed for the agent to work as intended.
+      'optional' tools enhance the agent if available.
+      rtk is a shell command proxy: the LLM calls 'rtk git status' etc. to receive
+      compact output, reducing context consumption.
+    properties:
+      required:
+        type: array
+        items:
+          type: string
+          enum: [rtk, graphify, qmd, obsidian]
+      optional:
+        type: array
+        items:
+          type: string
+          enum: [rtk, graphify, qmd, obsidian]
+
+  platforms:
+    type: object
+    required:
+      - default
+      - supported
+    properties:
+      default:
+        type: array
+        items:
+          type: string
+          enum: [claude, copilot, antigravity, vibe, codex]
+      supported:
+        type: array
+        items:
+          type: string
+          enum: [claude, copilot, antigravity, vibe, codex]

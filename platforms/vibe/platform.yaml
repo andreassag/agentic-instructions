@@ -1,0 +1,8 @@
+platform: vibe
+destination: .vibe/system_prompt.md
+marker:
+  start: "<!-- hub:vibe:start -->"
+  end: "<!-- hub:vibe:end -->"
+header: |
+  > [!NOTE]
+  > Managed by hub (agentic-instructions). Edit freely outside markers.

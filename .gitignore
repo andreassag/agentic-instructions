@@ -1,0 +1,126 @@
+# ── Project-generated outputs ──────────────────────────────────────────────
+# These files are written by hub into target repos; never commit them here
+.agent/
+.agent-context.txt
+CLAUDE.md
+.claude/
+.github/copilot-instructions.md
+.vibe/
+.codex/
+
+# ── Python ──────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+.installed.cfg
+*.so
+.venv/
+venv/
+env/
+.env
+pip-wheel-metadata/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# ── Node.js ─────────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp
+.pnp.js
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.npm/
+package-lock.json.bak
+
+# ── R ───────────────────────────────────────────────────────────────────────
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj.user/
+renv/library/
+renv/staging/
+renv/sandbox/
+
+# ── Rust ────────────────────────────────────────────────────────────────────
+target/
+Cargo.lock.bak
+
+# ── Go ──────────────────────────────────────────────────────────────────────
+vendor/
+
+# ── Docker ──────────────────────────────────────────────────────────────────
+# Singularity image files can be large; exclude from repo, store in shared cache
+*.sif
+*.sqfs
+
+# ── OS generated ────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ── Editor / IDE ────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-workspace
+*.sublime-project
+nbproject/
+
+# ── Secrets & credentials ───────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials/
+
+# ── Logs & temp ─────────────────────────────────────────────────────────────
+*.log
+*.tmp
+*.temp
+/tmp/
+
+# ── Test & debug artifacts ──────────────────────────────────────────────────
+repro.py
+repro.sh
+repro.r
+*.repro
+
+# ── Build outputs ────────────────────────────────────────────────────────────
+*.o
+*.a
+*.dylib
+*.dll
+*.exe

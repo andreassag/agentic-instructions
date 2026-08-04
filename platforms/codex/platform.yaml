@@ -1,0 +1,8 @@
+platform: codex
+destination: .codex/instructions.md
+marker:
+  start: "<!-- hub:codex:start -->"
+  end: "<!-- hub:codex:end -->"
+header: |
+  > [!NOTE]
+  > Managed by hub (agentic-instructions). Edit freely outside markers.

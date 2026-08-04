@@ -1,0 +1,11 @@
+platform: antigravity
+destination: .agent-context.txt
+extra_destinations:
+  - .agents/AGENTS.md
+  - .agents/skills/
+marker:
+  start: "# hub:antigravity:start"
+  end: "# hub:antigravity:end"
+header: |
+  # Managed by hub (agentic-instructions)
+  # Edit freely outside these markers. Run `hub update` to refresh.

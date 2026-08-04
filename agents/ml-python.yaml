@@ -1,0 +1,41 @@
+name: ml-python
+version: 1.0.0
+description: ML research and experimentation agent using Python — model training, evaluation, and experiment tracking.
+
+instructions:
+  agent:
+    - agent/safety.md
+    - agent/planning.md
+    - agent/debugging.md
+    - agent/communication.md
+  tech:
+    - tech/python.md
+    - tech/bash.md
+  context:
+    - context/ml-experiment.md
+    - context/data-pipeline.md
+
+skills:
+  - git/commit-lint.sh
+  - test/coverage-report.sh
+  - deps/audit.sh
+  - debug/repro-test.sh
+
+tools:
+  required:
+    - rtk
+  optional:
+    - graphify
+    - qmd
+
+platforms:
+  default:
+    - claude
+    - antigravity
+  supported:
+    - claude
+    - copilot
+    - antigravity
+    - vibe
+    - codex
+
