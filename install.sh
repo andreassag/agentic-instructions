@@ -204,7 +204,11 @@ run_cmd() {
 # --- Clone or update ---
 if [[ -d "$HUB_SHARE/.git" ]]; then
   if [[ $UPDATE -eq 1 ]]; then
-    echo "Updating hub..."; [[ $DRY_RUN -eq 0 ]] && run_cmd git -C "$HUB_SHARE" pull --ff-only
+    echo "Updating hub..."
+    if [[ $DRY_RUN -eq 0 ]]; then
+      run_cmd git -C "$HUB_SHARE" fetch origin "$BRANCH"
+      run_cmd git -C "$HUB_SHARE" reset --hard FETCH_HEAD
+    fi
   else
     echo "hub already installed at $HUB_SHARE. Use --update to upgrade."
   fi
