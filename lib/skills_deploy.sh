@@ -15,6 +15,7 @@ deploy_skills() {
         [[ -f "$skill_md" ]] && cp "$skill_md" "$dest/SKILL.md"
         cat > "$dest/run.sh" <<EOF
 #!/usr/bin/env bash
+HUB_HOME="\${HUB_HOME:-$HUB_HOME}"
 exec "\${HUB_HOME}/skills/${skill_path}" "\$@"
 EOF
         chmod +x "$dest/run.sh"

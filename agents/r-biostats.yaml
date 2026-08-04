@@ -6,6 +6,7 @@ instructions:
   agent:
     - agent/safety.md
     - agent/planning.md
+    - agent/debugging.md
     - agent/communication.md
     - agent/documentation.md
   tech:

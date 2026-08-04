@@ -6,6 +6,9 @@ instructions:
   agent:
     - agent/safety.md
     - agent/communication.md
+    - agent/debugging.md
+    - agent/planning.md
+    - agent/documentation.md
   tech:
     - tech/python.md
     - tech/bash.md
@@ -21,7 +24,6 @@ tools:
     - rtk
   optional:
     - qmd
-    - obsidian
     - graphify
 
 platforms:

@@ -1,39 +1,42 @@
-name: docs-writer
+name: backend-go
 version: 1.0.0
-description: Technical documentation agent — READMEs, API docs, changelogs, and architectural decision records.
+description: Agent for backend service and CLI development in Go (Golang).
 
 instructions:
   agent:
     - agent/safety.md
     - agent/communication.md
-    - agent/documentation.md
+    - agent/debugging.md
     - agent/planning.md
+    - agent/code-review.md
   tech:
+    - tech/go.md
     - tech/bash.md
+    - tech/docker.md
   context:
-    - context/library.md
+    - context/service.md
+    - context/api.md
 
 skills:
   - git/commit-lint.sh
-  - docs/changelog-entry.sh
-  - review/pr-checklist.sh
+  - test/coverage-report.sh
+  - security/secret-scan.sh
 
 tools:
   required:
     - rtk
+    - graphify
   optional:
     - qmd
-    - graphify
 
 platforms:
   default:
     - claude
-    - antigravity
     - copilot
+    - antigravity
   supported:
     - claude
     - copilot
     - antigravity
     - vibe
     - codex
-

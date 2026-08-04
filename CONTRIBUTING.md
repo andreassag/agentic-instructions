@@ -95,7 +95,7 @@ Rules:
 
 ## What NOT to Commit
 
-- `.agent/` directories from target repositories
+- `.agents/` directories from target repositories
 - Rendered instruction outputs (these are written by `hub`, not stored here)
 - `.sif` / `.sqfs` Singularity image files
 - Any file matching `.gitignore` patterns

@@ -8,6 +8,7 @@ instructions:
     - agent/planning.md
     - agent/debugging.md
     - agent/communication.md
+    - agent/documentation.md
   tech:
     - tech/python.md
     - tech/bash.md

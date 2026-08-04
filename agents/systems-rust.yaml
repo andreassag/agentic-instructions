@@ -6,6 +6,9 @@ instructions:
   agent:
     - agent/safety.md
     - agent/communication.md
+    - agent/debugging.md
+    - agent/planning.md
+    - agent/code-review.md
   tech:
     - tech/rust.md
     - tech/bash.md
@@ -22,7 +25,6 @@ tools:
     - graphify
   optional:
     - qmd
-    - obsidian
 
 platforms:
   default:

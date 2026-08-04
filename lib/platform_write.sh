@@ -10,6 +10,17 @@ write_platform_file() {
   marker_end=$(yq e '.marker.end' "$config")
   header=$(yq e '.header // ""' "$config")
 
+  local hooks_file="$HUB_HOME/platforms/$platform/hooks.sh"
+  if [[ -f "$hooks_file" ]]; then
+    # shellcheck disable=SC1090
+    source "$hooks_file"
+    declare -f append_agents_md >/dev/null && append_agents_md "$target_dir"
+    declare -f validate_git_root >/dev/null && validate_git_root "$target_dir"
+    declare -f validate_github_dir >/dev/null && validate_github_dir "$target_dir"
+    declare -f ensure_codex_dir >/dev/null && ensure_codex_dir "$target_dir"
+    declare -f ensure_vibe_dir >/dev/null && ensure_vibe_dir "$target_dir"
+  fi
+
   local abs_dest="$target_dir/$dest"
   ensure_dir "$(dirname "$abs_dest")"
 

@@ -187,22 +187,10 @@ install_rtk() {
   fi
 }
 
-# --- obsidian-ai: optional web platform — Docker Compose provided ---
-notice_obsidian_ai() {
-  echo ""
-  echo "  [optional] obsidian-ai — AI agent management platform"
-  echo "  Not installed automatically (it's a full FastAPI + Next.js web app)."
-  echo "  To run it with Docker:"
-  echo "    See: tools/obsidian/docker-compose.yml"
-  echo "    Docs: tools/obsidian/SETUP.md"
-  echo ""
-}
-
 # --- Run tool installations ---
 install_graphify
 install_qmd
 install_rtk
-notice_obsidian_ai
 
 # --- Helper function for sudo execution when needed ---
 run_cmd() {

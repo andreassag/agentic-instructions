@@ -8,6 +8,7 @@ Agent manifests define fully composed agents by combining instruction fragments,
 |---|---|---|
 | [bioinformatics-nextflow](bioinformatics-nextflow.yaml) | Bioinformatics pipelines with Nextflow DSL2 | Nextflow, Python, Bash |
 | [data-python](data-python.yaml) | Data engineering and analysis | Python, Bash |
+| [backend-go](backend-go.yaml) | Backend services & CLI tools | Go, Docker, Bash |
 | [full-stack-ts](full-stack-ts.yaml) | Full-stack web development | TypeScript, Bash |
 | [systems-rust](systems-rust.yaml) | Systems programming | Rust, Bash |
 | [ml-python](ml-python.yaml) | ML research and experiment tracking | Python, MLflow/W&B |

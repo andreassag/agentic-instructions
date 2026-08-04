@@ -6,6 +6,8 @@ instructions:
   agent:
     - agent/safety.md
     - agent/communication.md
+    - agent/debugging.md
+    - agent/planning.md
   tech:
     - tech/nextflow.md
     - tech/python.md

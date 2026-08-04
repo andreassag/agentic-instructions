@@ -2,6 +2,7 @@
 source "$HUB_HOME/lib/build_context.sh"
 source "$HUB_HOME/lib/platform_write.sh"
 source "$HUB_HOME/lib/skills_deploy.sh"
+source "$HUB_HOME/lib/tools_deploy.sh"
 
 cmd_init() {
   local agent_name="" platform_arg="" stack_arg="" force=0
@@ -18,14 +19,14 @@ cmd_init() {
   git rev-parse --git-dir >/dev/null 2>&1 || fatal "Current directory is not a git repository."
 
   local target_dir="${PWD}"
-  ensure_dir "$target_dir/.agent"
+  ensure_dir "$target_dir/.agents"
 
-  if [[ -f "$target_dir/.agent/lock" && $force -eq 0 ]]; then
-    fatal ".agent/lock file exists. Concurrent execution detected or stale lock. Pass --force to override."
+  if [[ -f "$target_dir/.agents/lock" && $force -eq 0 ]]; then
+    fatal ".agents/lock file exists. Concurrent execution detected or stale lock. Pass --force to override."
   fi
-  echo "$$" > "$target_dir/.agent/lock"
+  echo "$$" > "$target_dir/.agents/lock"
   # Use a subshell-safe cleanup: store the path in a non-local var, clear trap on success
-  _HUB_LOCK_FILE="$target_dir/.agent/lock"
+  _HUB_LOCK_FILE="$target_dir/.agents/lock"
   trap 'rm -f "${_HUB_LOCK_FILE:-}"' EXIT
 
   local manifest=""
@@ -37,7 +38,7 @@ cmd_init() {
   fi
 
   info "Loading manifest: $manifest"
-  local raw_context; raw_context=$(build_context "$manifest")
+  local raw_context; raw_context=$(build_context "$manifest" "$stack_arg")
 
   local platforms=()
   if [[ -n "$platform_arg" ]]; then
@@ -45,11 +46,11 @@ cmd_init() {
   else
     while IFS= read -r p; do
       [[ -n "$p" ]] && platforms+=("$p")
-    done < <(yq e '.platforms.default[]? // empty' "$manifest")
+    done < <(yq e '.platforms.default[]?' "$manifest")
   fi
 
   local current_hash; current_hash=$(string_hash "$raw_context")
-  local state_file="$target_dir/.agent/state.json"
+  local state_file="$target_dir/.agents/state.json"
 
   for p in "${platforms[@]}"; do
     if [[ $force -eq 0 ]] && ! context_changed "$p" "$current_hash" "$state_file"; then
@@ -60,6 +61,7 @@ cmd_init() {
     write_platform_file "$p" "$raw_context" "$target_dir"
     deploy_skills "$manifest" "$p" "$target_dir"
   done
+  deploy_tools "$manifest" "$target_dir"
 
   local iso_date; iso_date=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
   cat > "$state_file" <<EOF
@@ -75,9 +77,9 @@ $(for p in "${platforms[@]}"; do echo "    \"$p\": \"$current_hash\""; done | pa
 EOF
 
   if [[ -f "$target_dir/.gitignore" ]]; then
-    grep -qF ".agent/" "$target_dir/.gitignore" || echo ".agent/" >> "$target_dir/.gitignore"
+    grep -qF ".agents/" "$target_dir/.gitignore" || echo ".agents/" >> "$target_dir/.gitignore"
   else
-    echo ".agent/" > "$target_dir/.gitignore"
+    echo ".agents/" > "$target_dir/.gitignore"
   fi
 
   info "Hub initialized successfully!"

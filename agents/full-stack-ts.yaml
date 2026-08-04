@@ -6,6 +6,9 @@ instructions:
   agent:
     - agent/safety.md
     - agent/communication.md
+    - agent/debugging.md
+    - agent/planning.md
+    - agent/code-review.md
   tech:
     - tech/typescript.md
   context:

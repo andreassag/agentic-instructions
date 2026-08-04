@@ -3,8 +3,7 @@
 
 append_agents_md() {
   local target_dir="${1:-$PWD}"
-  local agents_md="$target_dir/.agents/AGENTS.md"
-  ensure_dir "$target_dir/.agents"
+  local agents_md="$target_dir/AGENTS.md"
   if [[ ! -f "$agents_md" ]]; then
     echo "# Agent Configuration" > "$agents_md"
     echo "" >> "$agents_md"

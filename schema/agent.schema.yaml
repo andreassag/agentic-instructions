@@ -74,12 +74,12 @@ properties:
         type: array
         items:
           type: string
-          enum: [rtk, graphify, qmd, obsidian]
+          enum: [rtk, graphify, qmd]
       optional:
         type: array
         items:
           type: string
-          enum: [rtk, graphify, qmd, obsidian]
+          enum: [rtk, graphify, qmd]
 
   platforms:
     type: object

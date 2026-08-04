@@ -1,8 +1,8 @@
 platform: antigravity
-destination: .agent-context.txt
+destination: AGENTS.md
 extra_destinations:
-  - .agents/AGENTS.md
   - .agents/skills/
+  - .agents/tools/
 marker:
   start: "# hub:antigravity:start"
   end: "# hub:antigravity:end"

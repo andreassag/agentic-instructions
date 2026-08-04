@@ -8,7 +8,7 @@ Centralized repository for storing, versioning, composing, and deploying LLM age
 
 - **Instructions** — Markdown rulesets for agent behaviour, coding standards, and project conventions.
 - **Skills** — Modular Bash scripts for repetitive tasks (commit lint, coverage, changelog generation, secret scanning, dependency audits).
-- **Tools** — External CLI integrations: `rtk`, `graphify`, `qmd`, `obsidian-ai`.
+- **Tools** — External CLI integrations: `rtk`, `graphify`, `qmd`.
 - **Agents** — Pre-composed named configurations declared in YAML manifests.
 - **Platforms** — Deployment targets: Claude Code, GitHub Copilot, Antigravity, Mistral Vibe, OpenAI Codex.
 
@@ -29,8 +29,6 @@ curl -fsSL https://raw.githubusercontent.com/exterex/agentic-instructions/main/i
 3. Clone this repo to `/usr/local/share/agentic-instructions` (with sudo) or `~/.local/share/agentic-instructions`.
 4. Symlink `hub` to `PREFIX/bin/hub`.
 5. Append `PREFIX/bin` to your `PATH` in `~/.bashrc` or `~/.zshrc`.
-
-> **obsidian-ai** is not installed automatically — it's a full web app (FastAPI + Next.js). See [`tools/obsidian/SETUP.md`](tools/obsidian/SETUP.md) and [`tools/obsidian/docker-compose.yml`](tools/obsidian/docker-compose.yml).
 
 **Manual install flags:**
 
@@ -119,7 +117,8 @@ agentic-instructions/
 │       ├── data-pipeline.md      # Idempotency, observability, quarantine
 │       ├── library.md            # SemVer, API stability, release process
 │       ├── service.md            # Lifecycle, health probes, structured logging
-│       └── ml-experiment.md      # Reproducibility, tracking, evaluation
+│       ├── ml-experiment.md      # Reproducibility, tracking, evaluation
+│       └── tools/                # Tool usage instructions (graphify, rtk, qmd)
 │
 ├── skills/                       # Invokable skill scripts
 │   ├── README.md                 # Skill authoring guide
@@ -137,17 +136,10 @@ agentic-instructions/
 │   ├── security/                 # secret-scan.sh — Secret detection (gitleaks)
 │   └── deps/                     # audit.sh — Dependency vulnerability audit
 │
-├── tools/                        # External tool integrations
-│   ├── graphify/                 # Repo graph visualizer — pip install graphifyy
-│   ├── rtk/                      # Token stripper — curl | sh install
-│   ├── qmd/                      # Markdown search — npm install -g @tobilu/qmd
-│   └── obsidian/                 # AI agent platform (web app)
-│       ├── docker-compose.yml    # Docker Compose for obsidian-ai
-│       └── SETUP.md              # Full setup guide
-│
 ├── agents/                       # Named agent YAML manifests
 │   ├── README.md                 # Agent quickstart and manifest format
 │   ├── systems-rust.yaml
+│   ├── backend-go.yaml
 │   ├── full-stack-ts.yaml
 │   ├── data-python.yaml
 │   ├── bioinformatics-nextflow.yaml
@@ -161,7 +153,7 @@ agentic-instructions/
 └── platforms/                    # Per-platform deployment config
     ├── claude/                   # → CLAUDE.md + .claude/commands/
     ├── copilot/                  # → .github/copilot-instructions.md
-    ├── antigravity/              # → .agent-context.txt + .agents/
+    ├── antigravity/              # → AGENTS.md + .agents/
     ├── vibe/                     # → .vibe/system_prompt.md
     └── codex/                    # → .codex/instructions.md
 ```
@@ -173,6 +165,7 @@ agentic-instructions/
 | Agent | Description | Key Tech |
 |---|---|---|
 | `systems-rust` | Systems programming | Rust, Bash |
+| `backend-go` | Backend services & CLI tools | Go, Docker, Bash |
 | `full-stack-ts` | Full-stack web development | TypeScript, Bash |
 | `data-python` | Data engineering and analysis | Python, Bash |
 | `bioinformatics-nextflow` | Bioinformatics pipelines | Nextflow DSL2, Python, Bash |
@@ -210,7 +203,7 @@ See [`skills/README.md`](skills/README.md) for authoring and invocation details.
 |---|---|---|
 | `claude` | `CLAUDE.md` | `.claude/commands/<skill>.md` |
 | `copilot` | `.github/copilot-instructions.md` | Documented inside file |
-| `antigravity` | `.agent-context.txt` | `.agents/skills/<name>/` |
+| `antigravity` | `AGENTS.md` | `.agents/skills/<name>/` |
 | `vibe` | `.vibe/system_prompt.md` | Documented inside file |
 | `codex` | `.codex/instructions.md` | Documented inside file |
 
@@ -248,6 +241,7 @@ hub update [--platform <p1,p2>] [--agent <name>] [--force]
 Load a named pre-composed agent.
 
 ```bash
+hub load backend-go
 hub load ml-python
 hub load r-biostats --force
 ```
@@ -266,7 +260,7 @@ Remove hub-managed files. Marker-aware: preserves content outside hub markers.
 ```bash
 hub clean                       # Clean all active platforms
 hub clean --platform claude     # Clean a specific platform
-hub clean --all                 # Also remove .agent/ directory
+hub clean --all                 # Also remove .agents/ directory
 ```
 
 ---
@@ -300,7 +294,6 @@ Key fields in every `agents/*.yaml`:
 | `rtk` | `curl \| sh` | Runtime: intercepts shell commands and compresses output to save LLM context | LLM agent (e.g. `rtk git status`, `rtk grep`) |
 | `graphify` | `pip install graphifyy` | Runtime: graphs repo structure for LLM context | LLM agent directly |
 | `qmd` | `npm install -g @tobilu/qmd` | Runtime: queries markdown docs | LLM agent directly |
-| `obsidian-ai` | Docker Compose | Runtime: AI agent management platform | Self-hosted web UI |
 
 ---
 
@@ -327,7 +320,7 @@ Quick rules:
 - Branch naming: `feat/<description>`, `fix/<description>`, `docs/<description>`
 - Run `bash validate.sh` before pushing — CI will reject failures.
 - Agent manifest changes require a `version:` bump.
-- Do not commit `.agent/` directories from target projects.
+- Do not commit `.agents/` directories from target projects.
 
 ---
 

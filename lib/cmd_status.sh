@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 cmd_status() {
   local target_dir="${PWD}"
-  local state_file="$target_dir/.agent/state.json"
+  local state_file="$target_dir/.agents/state.json"
+  [[ -f "$state_file" ]] || state_file="$target_dir/.agent/state.json"
   local json_out=0
 
   while [[ $# -gt 0 ]]; do

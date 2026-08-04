@@ -12,8 +12,12 @@ cmd_clean() {
     esac
   done
 
-  local state_file="$target_dir/.agent/state.json"
-  [[ -d "$target_dir/.agent" ]] || { info "No .agent directory found. Nothing to clean."; return 0; }
+  local state_file="$target_dir/.agents/state.json"
+  if [[ ! -d "$target_dir/.agents" && ! -d "$target_dir/.agent" ]]; then
+    info "No .agents or .agent directory found. Nothing to clean."
+    return 0
+  fi
+  [[ -f "$state_file" ]] || state_file="$target_dir/.agent/state.json"
 
   local platforms=()
   if [[ -n "$platform_filter" ]]; then
@@ -40,8 +44,13 @@ cmd_clean() {
         'found && $0==end{found=0;next} $0==start{found=1;next} !found{print}' \
         "$abs_dest" > "$tmp"
       if [[ -s "$tmp" ]]; then
-        mv "$tmp" "$abs_dest"
-        info "Cleaned hub markers from: $abs_dest"
+        if ! grep -vE '^\s*($|# Agent Configuration|This project uses \[hub\])' "$tmp" >/dev/null 2>&1; then
+          rm -f "$tmp" "$abs_dest"
+          info "Removed file: $abs_dest"
+        else
+          mv "$tmp" "$abs_dest"
+          info "Cleaned hub markers from: $abs_dest"
+        fi
       else
         rm -f "$tmp" "$abs_dest"
         info "Removed empty file: $abs_dest"
@@ -50,7 +59,7 @@ cmd_clean() {
   done
 
   if [[ $clean_all -eq 1 ]]; then
-    rm -rf "$target_dir/.agent"
-    info "Removed .agent/ directory."
+    rm -rf "$target_dir/.agents" "$target_dir/.agent"
+    info "Removed .agents/ directory."
   fi
 }
