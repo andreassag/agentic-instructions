@@ -20,7 +20,7 @@ The `hub` CLI assembles instructions and deploys them into a target repository i
 
 ```bash
 # One-liner (requires: git, wget or curl)
-curl -fsSL https://raw.githubusercontent.com/exterex/agentic-instructions/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/andreassag/agentic-instructions/main/install.sh | bash
 ```
 
 `install.sh` will:
