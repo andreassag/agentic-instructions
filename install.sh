@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_URL="https://github.com/exterex/agentic-instructions.git"
+REPO_URL="https://github.com/andreassag/agentic-instructions.git"
 DEFAULT_BRANCH="main"
 
 PREFIX="" DRY_RUN=0 NO_PATH=0 UPDATE=0 BRANCH="$DEFAULT_BRANCH"

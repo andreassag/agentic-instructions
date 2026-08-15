@@ -7,6 +7,6 @@ append_agents_md() {
   if [[ ! -f "$agents_md" ]]; then
     echo "# Agent Configuration" > "$agents_md"
     echo "" >> "$agents_md"
-    echo "This project uses [hub](https://github.com/exterex/agentic-instructions) to manage agent instructions." >> "$agents_md"
+    echo "This project uses [hub](https://github.com/andreassag/agentic-instructions) to manage agent instructions." >> "$agents_md"
   fi
 }

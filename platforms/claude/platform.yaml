@@ -7,6 +7,6 @@ marker:
   end: "<!-- hub:claude:end -->"
 header: |
   > [!NOTE]
-  > This section is managed by [hub](https://github.com/exterex/agentic-instructions).
+  > This section is managed by [hub](https://github.com/andreassag/agentic-instructions).
   > Content between markers is auto-generated. Edit freely outside the markers.
   > Refresh: `hub update` | Remove: `hub clean --platform claude`

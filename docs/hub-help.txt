@@ -1,5 +1,5 @@
 hub — agentic-instructions CLI
-https://github.com/exterex/agentic-instructions
+https://github.com/andreassag/agentic-instructions
 
 USAGE:
   hub <subcommand> [flags]
