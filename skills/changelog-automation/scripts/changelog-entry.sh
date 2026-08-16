@@ -39,7 +39,7 @@ while IFS= read -r line; do
     chore*|ci*|test*|build*) ;; # Skip internal chores from public changelog
     *)                 OTHER+=("- $MSG ($HASH)") ;;
   esac
-done < <(git log $RANGE --oneline --no-merges 2>/dev/null || true)
+done < <(git log "$RANGE" --oneline --no-merges 2>/dev/null || true)
 
 TODAY=$(date +"%Y-%m-%d")
 ENTRY="## [Unreleased] - $TODAY"

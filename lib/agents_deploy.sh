@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 deploy_agents() {
+  # shellcheck disable=SC2034
   local manifest=${1:-""}
   local target_dir=${2:-"${PWD}"}
 

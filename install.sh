@@ -31,9 +31,7 @@ fi
 HUB_SHARE="$PREFIX/share/agentic-instructions"
 HUB_BIN="$PREFIX/bin/hub"
 
-for tool in git; do
-  command -v "$tool" >/dev/null 2>&1 || { echo "ERROR: '$tool' not found. Install: apt install $tool / brew install $tool"; exit 1; }
-done
+command -v git >/dev/null 2>&1 || { echo "ERROR: 'git' not found. Install: apt install git / brew install git"; exit 1; }
 
 # --- Helper variables for OS and Architecture ---
 OS_TYPE="$(uname -s | tr '[:upper:]' '[:lower:]')"
@@ -265,6 +263,7 @@ fi
 
 if [[ $NO_PATH -eq 0 ]] && ! echo "$PATH" | tr ':' '\n' | grep -qx "$PREFIX/bin"; then
   RC="$HOME/.bashrc"; [[ "${SHELL:-}" == *zsh* ]] && RC="$HOME/.zshrc"
+  # shellcheck disable=SC2016
   [[ $DRY_RUN -eq 0 ]] && printf '\nexport PATH="%s/bin:$PATH"\n' "$PREFIX" >> "$RC"
   echo "Added $PREFIX/bin to PATH in $RC. Restart your shell or: source $RC"
 fi

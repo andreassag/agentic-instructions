@@ -183,7 +183,7 @@ while [[ $# -gt 0 ]]; do
     --hub-home)   HUB_HOME=$2; shift 2 ;;
     --dry-run)    HUB_DRY_RUN=1; shift ;;
     --verbose)    HUB_VERBOSE=1; set -x; shift ;;
-    --no-color)   HUB_NO_COLOR=1; HUB_COLOR=0; shift ;;
+    --no-color)   HUB_NO_COLOR=1; shift ;;
     *)            ARGS+=("$1"); shift ;;
   esac
 done

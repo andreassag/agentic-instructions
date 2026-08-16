@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 deploy_skills() {
+  # shellcheck disable=SC2034
   local manifest=$1 platform=$2 target_dir=$3
 
   local skills_dest="$target_dir/.agents/skills"

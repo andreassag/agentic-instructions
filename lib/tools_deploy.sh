@@ -33,7 +33,7 @@ init_tools() {
         graphify)
           if [[ -d "$target_dir" && ! -d "$target_dir/graphify-out" ]]; then
             info "Initializing graphify knowledge graph for project ($target_dir)..."
-            (cd "$target_dir" && "$bin_path" update . >/dev/null 2>&1 || true)
+            (cd "$target_dir" && "$bin_path" update . >/dev/null 2>&1) || true
           fi
           ;;
         rtk)
