@@ -1,10 +1,14 @@
-name: CI
+name: CI & Docs
 
 on:
   push:
     branches: ["main", "master", "feat/**", "fix/**", "docs/**", "chore/**"]
   pull_request:
     branches: ["main", "master"]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
 
 jobs:
   lint-and-validate:
@@ -62,3 +66,25 @@ jobs:
       - name: Build Docs Site
         run: |
           mkdocs build --strict
+
+      - name: Upload Pages Artifact
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy-docs:
+    name: Deploy Docs to GitHub Pages
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: [lint-and-validate, docs-build]
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

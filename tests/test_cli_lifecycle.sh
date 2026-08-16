@@ -47,7 +47,7 @@ for profile in "${PROFILES[@]}"; do
 
   # 3. Check status
   status_out=$("$HUB_HOME/hub.sh" status 2>&1 || true)
-  if echo "$status_out" | grep -q "$profile"; then
+  if [[ "$status_out" == *"$profile"* ]]; then
     echo "  ✓ hub status reports profile $profile"
     PASS=$((PASS + 1))
   else
@@ -80,7 +80,7 @@ echo "  -- Testing Profile Switching (hub load) --"
 load_output=$("$HUB_HOME/hub.sh" load full-stack-ts 2>&1 || true)
 status_output=$("$HUB_HOME/hub.sh" status 2>&1 || true)
 
-if echo "$status_output" | grep -q "full-stack-ts"; then
+if [[ "$status_output" == *"full-stack-ts"* ]]; then
   echo "  ✓ hub load switched profile to full-stack-ts"
   PASS=$((PASS + 1))
 else

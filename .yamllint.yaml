@@ -34,4 +34,4 @@ rules:
   quoted-strings: disable
   trailing-spaces: enable
   truthy:
-    level: warning
+    check-keys: false
