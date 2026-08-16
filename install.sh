@@ -4,19 +4,24 @@ set -euo pipefail
 REPO_URL="https://github.com/andreassag/agentic-instructions.git"
 DEFAULT_BRANCH="main"
 
-PREFIX="" DRY_RUN=0 NO_PATH=0 UPDATE=0 BRANCH="$DEFAULT_BRANCH"
+PREFIX="" DRY_RUN=0 NO_PATH=0 UPDATE=0
+VERSION="" TAG="" BRANCH=""
 
 while [[ $# -gt 0 ]]; do
   case $1 in
     --prefix)   PREFIX=$2; shift 2 ;;
+    --version)  VERSION=$2; shift 2 ;;
+    --tag)      TAG=$2; shift 2 ;;
     --branch)   BRANCH=$2; shift 2 ;;
     --dry-run)  DRY_RUN=1; shift ;;
     --no-path)  NO_PATH=1; shift ;;
     --update)   UPDATE=1; shift ;;
-    -h|--help)  echo "Usage: install.sh [--prefix PATH] [--branch NAME] [--update] [--dry-run] [--no-path]"; exit 0 ;;
+    -h|--help)  echo "Usage: install.sh [--prefix PATH] [--version VERSION] [--tag TAG] [--branch NAME] [--update] [--dry-run] [--no-path]"; exit 0 ;;
     *)          echo "Unknown flag: $1"; exit 1 ;;
   esac
 done
+
+TARGET_REF="${VERSION:-${TAG:-${BRANCH:-${DEFAULT_BRANCH}}}}"
 
 [[ "${BASH_VERSINFO[0]}" -ge 4 ]] || { echo "bash >= 4.0 required (got $BASH_VERSION)"; exit 1; }
 
@@ -38,7 +43,7 @@ ARCH_TYPE="$(uname -m)"
 if ! command -v jq >/dev/null 2>&1; then
   echo "Installing jq..."
   JQ_VERSION="jq-1.7.1"
-  
+
   case "$OS_TYPE" in
     linux)  JQ_OS="linux" ;;
     darwin) JQ_OS="macos" ;;
@@ -46,9 +51,9 @@ if ! command -v jq >/dev/null 2>&1; then
   esac
 
   case "$ARCH_TYPE" in
-    x86_64)       JQ_ARCH="amd64" ;;
+    x86_64)        JQ_ARCH="amd64" ;;
     aarch64|arm64) JQ_ARCH="arm64" ;;
-    i386|i686)    JQ_ARCH="i386" ;;
+    i386|i686)     JQ_ARCH="i386" ;;
     *) echo "Unsupported architecture for automatic jq installation: $ARCH_TYPE"; exit 1 ;;
   esac
 
@@ -87,7 +92,7 @@ if [[ $INSTALL_YQ -eq 1 ]]; then
 
   YQ_PLATFORM="${OS_TYPE}_${YQ_ARCH}"
   YQ_URL="https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_${YQ_PLATFORM}"
-  
+
   YQ_DEST="${PREFIX}/bin/yq"
   if [[ "$PREFIX" == "/usr/local" ]] && sudo -n true 2>/dev/null; then
     sudo wget -q "$YQ_URL" -O "$YQ_DEST" && sudo chmod +x "$YQ_DEST"
@@ -105,7 +110,6 @@ install_graphify() {
     return 0
   fi
   echo "Installing graphify..."
-  # Requires Python 3.10+ and pip
   if ! command -v python3 >/dev/null 2>&1; then
     echo "  ⚠ python3 not found — skipping graphify install. Install Python 3.10+ and re-run."
     return 0
@@ -114,17 +118,14 @@ install_graphify() {
     echo "  ⚠ Python 3.10+ required for graphify (got $(python3 --version 2>&1)) — skipping."
     return 0
   fi
-  # Try pip / pip3 — use --user if not in a venv and no write permission to site-packages
   local pip_cmd="pip3"
   command -v pip3 >/dev/null 2>&1 || pip_cmd="pip"
   command -v "$pip_cmd" >/dev/null 2>&1 || { echo "  ⚠ pip not found — skipping graphify install."; return 0; }
-  # PyPI package is temporarily 'graphifyy'; CLI and skill command remain 'graphify'
   "$pip_cmd" install --quiet graphifyy 2>&1 | tail -1
   if command -v graphify >/dev/null 2>&1; then
     echo "✓ Installed graphify (pip package: graphifyy)"
     graphify install 2>/dev/null || echo "  ⚠ 'graphify install' returned non-zero — skill may need manual setup."
   else
-    # pipx fallback (PATH may not include Scripts yet)
     if command -v pipx >/dev/null 2>&1; then
       pipx install graphifyy --quiet 2>/dev/null
       echo "✓ Installed graphify via pipx"
@@ -144,7 +145,6 @@ install_qmd() {
     return 0
   fi
   echo "Installing qmd..."
-  # Prefer bun if available, else npm
   if command -v bun >/dev/null 2>&1; then
     bun install -g @tobilu/qmd --quiet 2>&1 | tail -2
     echo "✓ Installed qmd via bun"
@@ -166,12 +166,10 @@ install_rtk() {
   fi
   echo "Installing rtk..."
   if command -v curl >/dev/null 2>&1; then
-    # Official quick-install: installs to ~/.local/bin
     curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh
     if command -v rtk >/dev/null 2>&1; then
       echo "✓ Installed rtk"
     else
-      # May need PATH update — ~/.local/bin is added at end of this script
       echo "✓ rtk installed to ~/.local/bin (will be on PATH after shell restart)"
     fi
   elif command -v brew >/dev/null 2>&1; then
@@ -201,22 +199,60 @@ run_cmd() {
   fi
 }
 
-# --- Clone or update ---
-if [[ -d "$HUB_SHARE/.git" ]]; then
-  if [[ $UPDATE -eq 1 ]]; then
-    echo "Updating hub..."
-    if [[ $DRY_RUN -eq 0 ]]; then
-      run_cmd git -C "$HUB_SHARE" fetch origin "$BRANCH"
-      run_cmd git -C "$HUB_SHARE" reset --hard FETCH_HEAD
-    fi
-  else
-    echo "hub already installed at $HUB_SHARE. Use --update to upgrade."
+# --- Auto-detect local development repository ---
+IS_LOCAL_REPO=0
+SCRIPT_DIR=""
+if [[ -n "${BASH_SOURCE[0]:-}" && -f "${BASH_SOURCE[0]}" ]]; then
+  SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" 2>/dev/null && pwd)"
+  if [[ -n "$SCRIPT_DIR" && -f "$SCRIPT_DIR/hub.sh" && -d "$SCRIPT_DIR/agents" && -d "$SCRIPT_DIR/instructions" ]]; then
+    IS_LOCAL_REPO=1
   fi
-else
-  echo "Installing hub to $HUB_SHARE..."
+fi
+
+# --- Clone, update, or link local repo ---
+if [[ $IS_LOCAL_REPO -eq 1 && -z "$VERSION" && -z "$TAG" && -z "$BRANCH" ]]; then
+  echo "Using local repository at $SCRIPT_DIR"
   if [[ $DRY_RUN -eq 0 ]]; then
     run_cmd mkdir -p "$(dirname "$HUB_SHARE")"
-    run_cmd git clone --depth=1 -b "$BRANCH" "$REPO_URL" "$HUB_SHARE"
+    if [[ -d "$HUB_SHARE" && ! -L "$HUB_SHARE" ]]; then
+      run_cmd rm -rf "$HUB_SHARE"
+    fi
+    run_cmd ln -sfn "$SCRIPT_DIR" "$HUB_SHARE"
+    echo "✓ Linked $HUB_SHARE -> $SCRIPT_DIR"
+  fi
+elif [[ -d "$HUB_SHARE/.git" ]]; then
+  if [[ $UPDATE -eq 1 || -n "$VERSION" || -n "$TAG" || -n "$BRANCH" ]]; then
+    echo "Updating hub to $TARGET_REF..."
+    if [[ $DRY_RUN -eq 0 ]]; then
+      run_cmd git -C "$HUB_SHARE" fetch --tags origin || true
+      if run_cmd git -C "$HUB_SHARE" fetch origin "$TARGET_REF" 2>/dev/null; then
+        run_cmd git -C "$HUB_SHARE" checkout -f FETCH_HEAD
+      elif run_cmd git -C "$HUB_SHARE" checkout -f "$TARGET_REF" 2>/dev/null; then
+        :
+      elif run_cmd git -C "$HUB_SHARE" checkout -f "v$TARGET_REF" 2>/dev/null; then
+        :
+      else
+        echo "ERROR: Version/ref '$TARGET_REF' not found."
+        exit 1
+      fi
+      echo "✓ Updated to $TARGET_REF"
+    fi
+  else
+    echo "hub already installed at $HUB_SHARE. Use --update or --version to upgrade/switch."
+  fi
+else
+  echo "Installing hub ($TARGET_REF) to $HUB_SHARE..."
+  if [[ $DRY_RUN -eq 0 ]]; then
+    run_cmd mkdir -p "$(dirname "$HUB_SHARE")"
+    if ! run_cmd git clone --depth=1 -b "$TARGET_REF" "$REPO_URL" "$HUB_SHARE" 2>/dev/null; then
+      if [[ "$TARGET_REF" != v* ]] && run_cmd git clone --depth=1 -b "v$TARGET_REF" "$REPO_URL" "$HUB_SHARE" 2>/dev/null; then
+        :
+      else
+        run_cmd git clone "$REPO_URL" "$HUB_SHARE"
+        run_cmd git -C "$HUB_SHARE" checkout -f "$TARGET_REF" || run_cmd git -C "$HUB_SHARE" checkout -f "v$TARGET_REF"
+      fi
+    fi
+    echo "✓ Installed version $TARGET_REF"
   fi
 fi
 

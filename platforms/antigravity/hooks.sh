@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 # hooks.sh — Antigravity platform pre/post write hooks
 
-append_agents_md() {
+ensure_rules_dir() {
   local target_dir="${1:-$PWD}"
-  local agents_md="$target_dir/AGENTS.md"
-  if [[ ! -f "$agents_md" ]]; then
-    echo "# Agent Configuration" > "$agents_md"
-    echo "" >> "$agents_md"
-    echo "This project uses [hub](https://github.com/andreassag/agentic-instructions) to manage agent instructions." >> "$agents_md"
-  fi
+  ensure_dir "$target_dir/.agents/rules"
 }

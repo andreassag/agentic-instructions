@@ -1,23 +1,22 @@
 #!/usr/bin/env bash
-deploy_tools() {
+
+init_tools() {
   local manifest=$1 target_dir=$2
-  local tools_dest="$target_dir/.agents/tools"
-  ensure_dir "$tools_dest"
 
-  local tools_to_deploy=("graphify" "rtk" "qmd")
+  local tools_to_check=()
 
-  if [[ -f "$manifest" ]]; then
+  if [[ -n "$manifest" && -f "$manifest" ]]; then
     while IFS= read -r t; do
-      [[ -n "$t" ]] && tools_to_deploy+=("$t")
-    done < <(yq e '.tools.required[]?' "$manifest" 2>/dev/null)
+      [[ -n "$t" ]] && tools_to_check+=("$t")
+    done < <(yq e '.tools[]?' "$manifest" 2>/dev/null)
+  fi
 
-    while IFS= read -r t; do
-      [[ -n "$t" ]] && tools_to_deploy+=("$t")
-    done < <(yq e '.tools.optional[]?' "$manifest" 2>/dev/null)
+  if [[ ${#tools_to_check[@]} -eq 0 ]]; then
+    tools_to_check=("rtk" "qmd" "graphify")
   fi
 
   local unique_tools=()
-  for t in "${tools_to_deploy[@]}"; do
+  for t in "${tools_to_check[@]}"; do
     local exists=0
     for u in "${unique_tools[@]}"; do
       [[ "$u" == "$t" ]] && { exists=1; break; }
@@ -26,25 +25,27 @@ deploy_tools() {
   done
 
   for tool_name in "${unique_tools[@]}"; do
-    local tool_dest="$tools_dest/$tool_name"
     local bin_path
     bin_path=$(command -v "$tool_name" 2>/dev/null || true)
 
     if [[ -n "$bin_path" ]]; then
-      ln -sf "$bin_path" "$tool_dest"
-      chmod +x "$tool_dest" 2>/dev/null || true
-
-      # Project-level tool initialization
       case "$tool_name" in
         graphify)
-          if [[ -d "$target_dir" ]]; then
+          if [[ -d "$target_dir" && ! -d "$target_dir/graphify-out" ]]; then
             info "Initializing graphify knowledge graph for project ($target_dir)..."
             (cd "$target_dir" && "$bin_path" update . >/dev/null 2>&1 || true)
           fi
           ;;
+        rtk)
+          # Clean up any external rtk-created rule file in favor of hub-managed rtk.md
+          rm -f "$target_dir/.agents/rules/antigravity-rtk-rules.md"
+          ;;
       esac
-    else
-      info "Tool '$tool_name' not found in PATH. Skipping symlink."
     fi
   done
+}
+
+# Alias for backwards compatibility
+deploy_tools() {
+  init_tools "$@"
 }

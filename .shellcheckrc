@@ -1,0 +1,9 @@
+# ShellCheck Configuration
+# See https://github.com/koalaman/shellcheck/wiki/Directive
+
+# Disable warning about non-constant source paths (library sourcing)
+disable=SC1090
+disable=SC1091
+
+# Enforce bash dialect for consistency
+shell=bash

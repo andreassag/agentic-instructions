@@ -1,0 +1,4 @@
+antigravity:
+  trigger: glob
+  glob: "*.py,**/*.py,pyproject.toml,uv.lock,setup.py"
+  description: Python technical guidelines, uv packaging, FastAPI services, and Pydantic models.

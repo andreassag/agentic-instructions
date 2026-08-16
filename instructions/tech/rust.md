@@ -3,38 +3,30 @@
 ## Workspace & Project Structure
 1. Use Cargo workspaces for multi-crate projects; each logical component is its own crate.
 2. Organize: `src/lib.rs` for library entry points, `src/main.rs` for binaries, `src/bin/` for multiple binaries.
-3. Keep `Cargo.lock` committed for binaries; exclude it (via `.gitignore`) for libraries.
+3. Keep `Cargo.lock` committed for binaries; exclude it (via `.gitignore`) for pure libraries.
 4. Pin dependency versions in `Cargo.toml` with `^` constraints; audit with `cargo audit` in CI.
 
-## Error Handling
+## Error Handling & Safety
 5. Use `thiserror` to define domain errors in library crates; use `anyhow` for application-level error propagation.
 6. Never use `unwrap()` or `expect()` in library code; in application code, `expect()` is acceptable with a meaningful message.
 7. Propagate errors with `?`; avoid `match` on `Result`/`Option` when `?` or combinators suffice.
-8. Define a single `Error` enum per crate; avoid ad-hoc `String` errors.
+8. Avoid `unsafe` blocks unless absolutely required; every `unsafe` block must have a comment explaining the invariant being upheld.
+9. Prefer borrowing over cloning; document with a `// clone justified: …` comment when cloning is intentional.
 
-## Ownership & Safety
-9. Avoid `unsafe` blocks unless absolutely required; every `unsafe` block must have a comment explaining the invariant being upheld.
-10. Prefer borrowing over cloning; document with a `// clone justified: …` comment when cloning is intentional.
-11. Use `Arc<Mutex<T>>` for shared mutable state across threads; prefer message-passing (`std::sync::mpsc` or `tokio::sync::mpsc`) over shared state.
+## Async & Service Patterns
+10. Use `tokio` as the async runtime; do not mix runtimes.
+11. Annotate async functions and avoid blocking calls inside async context (use `tokio::task::spawn_blocking` for CPU-heavy work).
+12. Use `tracing` and `tracing-subscriber` for structured logging; emit JSON in production.
+13. Implement graceful shutdown on `tokio::signal::ctrl_c()` to flush buffers and close connections.
 
-## Async
-12. Use `tokio` as the async runtime; do not mix runtimes.
-13. Annotate async functions and avoid blocking calls inside async context (use `tokio::task::spawn_blocking` for CPU-heavy work).
-14. Prefer `tokio::select!` for concurrent futures; document cancellation safety in comments.
+## CLI & Library Ergonomics
+14. Use `clap` (derive API) for command-line parsing; support POSIX flags (`-v`, `--help`, `--version`).
+15. Write human-readable data to `stdout`, diagnostic logs to `stderr`, and support `--json` output.
+16. Return `anyhow::Result<()>` or `std::process::ExitCode` from `main()` to map exit codes cleanly.
+17. Enable `#![deny(missing_docs)]` for public library crates; include runnable `# Examples` in doc comments (`///`).
 
-## Code Style & Linting
-15. Run `cargo fmt` before every commit (enforced in CI with `cargo fmt --check`).
-16. Run `cargo clippy -- -D warnings`; zero clippy warnings required to merge.
-17. Enable `#![deny(missing_docs)]` for all public library crates.
-18. Write doc comments (`///`) for all public items; include at least one `# Examples` section.
-
-## Testing
-19. Unit tests live in `#[cfg(test)]` modules in the same file as the code they test.
-20. Integration tests live in `tests/`; each file is a separate test binary.
-21. Use `proptest` or `quickcheck` for property-based testing of non-trivial logic.
-22. Benchmark with `criterion`; store results in CI artifacts for regression tracking.
-
-## Performance
-23. Profile before optimizing; use `cargo flamegraph` or `perf` to identify hotspots.
-24. Prefer zero-copy types (`&str`, `&[u8]`, `Cow<str>`) at API boundaries.
-25. Use `RUSTFLAGS="-C target-cpu=native"` for local benchmarks; document performance assumptions.
+## Code Style, Testing & Performance
+18. Run `cargo fmt --all` before every commit (enforced in CI with `cargo fmt --check`).
+19. Run `cargo clippy --all-targets -- -D warnings`; zero clippy warnings required to merge.
+20. Unit tests live in `#[cfg(test)]` modules; integration tests live in `tests/`.
+21. Prefer zero-copy types (`&str`, `&[u8]`, `Cow<str>`) at API boundaries.

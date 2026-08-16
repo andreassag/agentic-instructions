@@ -1,0 +1,48 @@
+# Stack Profile Schema
+# Every profile.yaml in /profiles/ must conform to this structure.
+# Required fields: name, version, description, instructions
+
+type: object
+required:
+  - name
+  - version
+  - description
+  - instructions
+
+properties:
+  name:
+    type: string
+    pattern: "^[a-z0-9-]+$"
+    description: "Unique profile identifier (lowercase, hyphens only)"
+
+  version:
+    type: string
+    pattern: "^\\d+\\.\\d+\\.\\d+$"
+    description: "Semantic version (e.g. 1.0.0)"
+
+  description:
+    type: string
+    description: "Human-readable description of this profile"
+
+  extends:
+    type: string
+    description: "Optional: name of another profile to inherit from"
+
+  instructions:
+    type: array
+    items:
+      type: string
+    description: "Instruction file paths relative to instructions/ (e.g. tech/go.md, tech/docker.md)"
+
+  skills:
+    type: array
+    items:
+      type: string
+    description: "Skill script paths relative to skills/ (e.g. git/commit-lint.sh)"
+
+  tools:
+    type: array
+    items:
+      type: string
+      enum: [rtk, graphify, qmd]
+    description: "List of enabled tools for this profile (e.g. rtk, qmd, graphify)"

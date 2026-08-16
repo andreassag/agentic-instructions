@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# .githooks/pre-commit — Pre-commit formatting, linting, hygiene, and test suite execution
+set -euo pipefail
+
+ROOT_DIR="$(git rev-parse --show-toplevel)"
+cd "$ROOT_DIR"
+
+echo "=== Git Pre-Commit Hook ==="
+
+# 1. Format shell scripts with shfmt (if available)
+if command -v shfmt >/dev/null 2>&1; then
+  staged_sh=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.sh$' || true)
+  if [[ -n "$staged_sh" ]]; then
+    echo "  -- Formatting staged shell scripts (shfmt -i 2)..."
+    while IFS= read -r f; do
+      if [[ -f "$f" ]]; then
+        shfmt -i 2 -w "$f"
+        git add "$f"
+      fi
+    done <<< "$staged_sh"
+  fi
+fi
+
+# 2. Lint shell scripts with shellcheck (if available)
+if command -v shellcheck >/dev/null 2>&1; then
+  staged_sh=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.sh$' || true)
+  if [[ -n "$staged_sh" ]]; then
+    echo "  -- Linting staged shell scripts (shellcheck)..."
+    while IFS= read -r f; do
+      if [[ -f "$f" ]]; then
+        shellcheck "$f"
+      fi
+    done <<< "$staged_sh"
+  fi
+fi
+
+# 3. Lint YAML with yamllint (if available)
+if command -v yamllint >/dev/null 2>&1; then
+  staged_yaml=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(yaml|yml)$' || true)
+  if [[ -n "$staged_yaml" ]]; then
+    echo "  -- Linting staged YAML files (yamllint)..."
+    while IFS= read -r f; do
+      if [[ -f "$f" ]]; then
+        yamllint -c .yamllint.yaml "$f"
+      fi
+    done <<< "$staged_yaml"
+  fi
+fi
+
+# 4. Check for forbidden file patterns
+echo "  -- Checking repository hygiene..."
+if git diff --cached --name-only --diff-filter=ACM | grep -qE '\.(sif|sqfs|pem|key|p12|pfx)$'; then
+  echo "❌ Error: Attempting to commit forbidden binary or sensitive key files."
+  exit 1
+fi
+
+# 5. Run test suite
+echo "  -- Running test suite..."
+bash tests/run_all.sh
+
+echo "✓ All pre-commit checks passed!"

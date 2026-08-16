@@ -1,0 +1,22 @@
+name: ml-python
+version: 1.0.0
+description: ML research and experimentation agent using Python — model training, evaluation, and experiment tracking.
+instructions:
+  - tech/python.md
+  - tech/bash.md
+  - tech/docker.md
+skills:
+  - git-workflow/commit-lint.sh
+  - code-linting/python.sh
+  - code-formatting/python.sh
+  - test-runner/python.sh
+  - dependency-management/python.sh
+  - secret-scanning/secret-scan.sh
+  - python-patterns
+  - clean-code
+  - performance-profiling
+  - systematic-debugging
+tools:
+  - rtk
+  - qmd
+  - graphify

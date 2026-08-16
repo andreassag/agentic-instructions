@@ -1,0 +1,28 @@
+name: full-stack-ts
+version: 1.0.0
+description: Full-stack TypeScript agent for web app development.
+instructions:
+  - tech/typescript.md
+  - tech/bash.md
+  - tech/docker.md
+skills:
+  - git-workflow/commit-lint.sh
+  - code-linting/ts.sh
+  - code-formatting/ts.sh
+  - test-runner/ts.sh
+  - dependency-management/ts.sh
+  - secret-scanning/secret-scan.sh
+  - nextjs-react-expert
+  - frontend-architecture
+  - frontend-design
+  - tailwind-patterns
+  - nodejs-best-practices
+  - api-patterns
+  - database-design
+  - webapp-testing
+  - clean-code
+  - systematic-debugging
+tools:
+  - rtk
+  - qmd
+  - graphify

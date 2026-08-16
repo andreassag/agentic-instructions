@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# .githooks/commit-msg — Conventional Commits validation hook
+set -euo pipefail
+
+ROOT_DIR="$(git rev-parse --show-toplevel)"
+COMMIT_MSG_FILE="$1"
+
+FIRST_LINE=$(head -n 1 "$COMMIT_MSG_FILE" || true)
+if [[ "$FIRST_LINE" =~ ^Merge || "$FIRST_LINE" =~ ^Revert ]]; then
+  exit 0
+fi
+
+echo "=== Git Commit-Msg Hook ==="
+bash "$ROOT_DIR/skills/git-workflow/scripts/commit-lint.sh" "$COMMIT_MSG_FILE"

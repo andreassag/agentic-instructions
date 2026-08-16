@@ -1,38 +1,34 @@
 # Python Technical Guidelines
 
 ## Environment & Packaging
-1. Use `uv` for all environment management: `uv venv`, `uv pip install`, `uv run`, and `uv lock`.
+1. Use `uv` for environment management: `uv venv`, `uv pip install`, `uv run`, and `uv lock`.
 2. Commit `uv.lock` (or `pyproject.toml` + lock) to ensure reproducible installs — never bare `requirements.txt` without pinning.
-3. Declare dependencies in `pyproject.toml` under `[project.dependencies]`; dev dependencies under `[project.optional-dependencies]` or `[tool.uv.dev-dependencies]`.
-4. Never modify the system Python environment; always work inside a project venv.
+3. Declare dependencies in `pyproject.toml` under `[project.dependencies]`; dev dependencies under `[project.optional-dependencies]`.
+4. Always work inside a project venv; never modify the system Python environment.
 
-## Type Annotations
+## Type Annotations & Data Modeling
 5. All public functions, methods, and module-level variables must have explicit type annotations.
-6. Use `from __future__ import annotations` at the top of every file for forward-reference compatibility.
-7. Prefer `TypeAlias`, `TypeVar`, and `Protocol` over `Any`; `Any` is only acceptable with a comment justifying it.
-8. Run `mypy --strict` (or `pyright`) as part of CI; zero type errors required to merge.
+6. Use `from __future__ import annotations` at the top of every file for modern union syntax (`X | Y`).
+7. Use `pydantic` (v2) or `dataclasses` for structured data models; avoid bare untyped dictionaries for domain schemas.
+8. Run `mypy` as part of verification; zero type errors required.
 
-## Code Style & Linting
-9. Format with `ruff format` (replaces `black`); lint with `ruff check` — both run in pre-commit.
-10. Max line length: 100 characters.
-11. Imports: standard library → third-party → local, each group separated by a blank line.
-12. Avoid wildcard imports (`from x import *`) in all non-`__init__.py` files.
-13. Use `ruff`'s `I` (isort), `N` (pep8-naming), and `UP` (pyupgrade) rule sets.
+## Web Services & APIs
+9. Use `FastAPI` for REST APIs; validate all incoming requests via Pydantic schemas.
+10. Version endpoints explicitly (`/v1/...`); return standard HTTP status codes (`200`, `201`, `400`, `404`, `422`).
+11. Return consistent error response envelopes:
+    ```json
+    { "error": { "code": "VALIDATION_ERROR", "message": "...", "details": [] } }
+    ```
+12. Use `lifespan` async context managers for clean startup and shutdown resource management.
 
-## Testing
-14. Write tests with `pytest`; structure under `tests/` mirroring `src/`.
-15. Use `pytest-cov` to enforce a minimum branch coverage threshold (set in `pyproject.toml`).
-16. Prefer `pytest.fixture` over `setUp`/`tearDown`; use `tmp_path` for filesystem fixtures.
-17. Name test functions `test_<unit>_<scenario>` for clear failure messages.
+## CLI & Data/ML Pipelines
+13. Use `typer` or `argparse` for CLI applications; support `--help`, `--version`, and `--json`.
+14. Ensure pipelines and transformations are idempotent: pure functions where identical inputs produce identical outputs.
+15. Never modify raw input data in-place; store raw data in `data/raw/` and write derived artifacts to `data/processed/`.
+16. Set deterministic random seeds at script entrypoints (`random.seed(42)`, `np.random.seed(42)`, `torch.manual_seed(42)`).
 
-## Error Handling & Logging
-18. Raise specific exceptions, never bare `except:` or `except Exception` without re-raise or logging.
-19. Use `logging` from the standard library; never `print()` for diagnostic output in library code.
-20. Log with `structlog` or the standard `logging` module using structured key-value pairs.
-21. Set log levels via environment variable (`LOG_LEVEL`), defaulting to `WARNING` in production.
-
-## Modern Python Idioms
-22. Target Python 3.10+ — use `match`/`case`, `X | Y` union syntax, and `TypeGuard` where appropriate.
-23. Use `dataclasses` or `pydantic` models for structured data; avoid bare dicts for complex schemas.
-24. Prefer `pathlib.Path` over `os.path` for all filesystem operations.
-25. Use context managers (`with`) for all resource acquisition (files, connections, locks).
+## Code Style, Linting & Testing
+17. Format with `ruff format`; lint with `ruff check --fix`.
+18. Write tests with `pytest`; structure under `tests/` mirroring `src/`.
+19. Prefer `pytest.fixture` and `tmp_path` over manual file teardown.
+20. Prefer `pathlib.Path` over `os.path` for all filesystem operations.

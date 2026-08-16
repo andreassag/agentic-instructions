@@ -7,9 +7,10 @@ USAGE:
 SUBCOMMANDS:
   init    Initialize hub in the current git repository
   update  Re-apply hub configuration (hash-gated, rewrites only changed files)
-  load    Load a named pre-composed agent
+  load    Load a named stack profile
   clean   Remove hub-managed files from the current repository
   status  Show current hub state
+
 
 GLOBAL FLAGS:
   --hub-home PATH    Override HUB_HOME

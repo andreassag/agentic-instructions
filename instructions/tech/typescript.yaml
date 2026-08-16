@@ -1,0 +1,4 @@
+antigravity:
+  trigger: glob
+  glob: "*.ts,**/*.ts,*.tsx,**/*.tsx,*.js,**/*.js,package.json,tsconfig.json"
+  description: TypeScript technical guidelines, strict typing, Zod validation, and REST services.

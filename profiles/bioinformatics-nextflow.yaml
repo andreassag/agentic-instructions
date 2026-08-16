@@ -1,0 +1,23 @@
+name: bioinformatics-nextflow
+version: 1.0.0
+description: Bioinformatics pipeline agent using Nextflow DSL2 and Python.
+instructions:
+  - tech/nextflow.md
+  - tech/python.md
+  - tech/bash.md
+  - tech/docker.md
+skills:
+  - git-workflow/commit-lint.sh
+  - code-linting/nextflow.sh
+  - code-formatting/nextflow.sh
+  - test-runner/nextflow.sh
+  - code-linting/python.sh
+  - test-runner/python.sh
+  - dependency-management/python.sh
+  - secret-scanning/secret-scan.sh
+  - bash-linux
+  - clean-code
+  - systematic-debugging
+tools:
+  - rtk
+  - qmd

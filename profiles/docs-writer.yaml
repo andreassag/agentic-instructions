@@ -1,0 +1,13 @@
+name: docs-writer
+version: 1.0.0
+description: Technical documentation agent — READMEs, API docs, changelogs, and architectural decision records.
+instructions:
+  - tech/bash.md
+skills:
+  - git-workflow/commit-lint.sh
+  - changelog-automation/changelog-entry.sh
+  - documentation-templates
+  - design-spec
+tools:
+  - rtk
+  - qmd

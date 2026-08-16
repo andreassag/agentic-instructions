@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "master", "feat/**", "fix/**", "docs/**", "chore/**"]
+  pull_request:
+    branches: ["main", "master"]
+
+jobs:
+  lint-and-validate:
+    name: Lint, Schemas & Static Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Tooling (jq, yq, shellcheck, yamllint)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq jq wget shellcheck yamllint
+          YQ_VERSION="v4.53.3"
+          sudo wget -q "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64" \
+            -O /usr/local/bin/yq
+          sudo chmod +x /usr/local/bin/yq
+          yq --version
+
+      - name: Run Yamllint
+        run: |
+          yamllint -c .yamllint.yaml .
+
+      - name: Run Test Suite (tests/run_all.sh)
+        run: |
+          bash tests/run_all.sh
+
+      - name: Git & Secret Hygiene Check
+        run: |
+          if git ls-files | grep -qE '\.(sif|sqfs|pem|key|p12|pfx)$'; then
+            echo "ERROR: Binary or secret files are tracked."
+            exit 1
+          fi
+          echo "✓ Git hygiene verified."
+
+  docs-build:
+    name: Build Documentation (MkDocs)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install MkDocs & Material Theme
+        run: |
+          pip install --upgrade pip
+          pip install mkdocs mkdocs-material
+
+      - name: Build Docs Site
+        run: |
+          mkdocs build --strict

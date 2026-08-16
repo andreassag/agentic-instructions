@@ -1,11 +1,8 @@
 platform: antigravity
-destination: AGENTS.md
+destination: .agents/rules/
 extra_destinations:
+  - .agents/agents/
   - .agents/skills/
-  - .agents/tools/
-marker:
-  start: "# hub:antigravity:start"
-  end: "# hub:antigravity:end"
+
 header: |
   # Managed by hub (agentic-instructions)
-  # Edit freely outside these markers. Run `hub update` to refresh.

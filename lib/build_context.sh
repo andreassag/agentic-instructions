@@ -1,57 +1,36 @@
 #!/usr/bin/env bash
 build_context() {
   local manifest=$1
-  local stack_arg=${2:-""}
   local output=""
 
-  _append_instructions() {
-    local key=$1
+  if [[ -n "$manifest" && -f "$manifest" ]]; then
     while IFS= read -r file; do
       [[ -z "$file" ]] && continue
-      local abs="$HUB_HOME/instructions/$file"
-      [[ -f "$abs" ]] || fatal "Instruction file not found: $abs"
-      output+=$'\n'"$(cat "$abs")"
-    done < <(yq e ".instructions.${key}[]? // \"\"" "$manifest" | grep -v '^$')
-  }
-
-  _append_instructions "agent"
-  _append_instructions "tech"
-  _append_instructions "context"
-
-  while IFS= read -r file; do
-    [[ -z "$file" ]] && continue
-    local abs="$HUB_HOME/$file"
-    [[ -f "$abs" ]] || { warn "Extra instruction not found: $abs"; continue; }
-    output+=$'\n'"$(cat "$abs")"
-  done < <(yq e '.instructions.extra[]? // ""' "$manifest" | grep -v '^$')
-
-  if [[ -n "$stack_arg" ]]; then
-    local stacks=()
-    IFS=',' read -r -a stacks <<< "$stack_arg"
-    for s in "${stacks[@]}"; do
-      [[ -z "$s" ]] && continue
-      local tech_file="$HUB_HOME/instructions/tech/${s}.md"
-      local ctx_file="$HUB_HOME/instructions/context/${s}.md"
-      if [[ -f "$tech_file" ]]; then
-        output+=$'\n'"$(cat "$tech_file")"
-      elif [[ -f "$ctx_file" ]]; then
-        output+=$'\n'"$(cat "$ctx_file")"
-      elif [[ -f "$HUB_HOME/instructions/$s" ]]; then
-        output+=$'\n'"$(cat "$HUB_HOME/instructions/$s")"
-      else
-        warn "Stack instruction not found for: '$s'"
+      local abs=""
+      if [[ -f "$HUB_HOME/instructions/$file" ]]; then
+        abs="$HUB_HOME/instructions/$file"
+      elif [[ -f "$HUB_HOME/$file" ]]; then
+        abs="$HUB_HOME/$file"
       fi
-    done
+
+      if [[ -n "$abs" && -f "$abs" ]]; then
+        output+=$'\n'"$(cat "$abs")"
+      else
+        warn "Instruction file not found: $file"
+      fi
+    done < <(yq e '(.instructions[]? // .instructions.tech[]?)' "$manifest" 2>/dev/null | grep -v '^$')
   fi
 
-  local tools_to_include=("graphify" "rtk" "qmd")
+  local tools_to_include=()
   if [[ -f "$manifest" ]]; then
     while IFS= read -r t; do
       [[ -n "$t" ]] && tools_to_include+=("$t")
-    done < <(yq e '.tools.required[]?' "$manifest" 2>/dev/null)
-    while IFS= read -r t; do
-      [[ -n "$t" ]] && tools_to_include+=("$t")
-    done < <(yq e '.tools.optional[]?' "$manifest" 2>/dev/null)
+    done < <(yq e '.tools[]?' "$manifest" 2>/dev/null)
+  fi
+
+  # Default fallback if no manifest tools specified
+  if [[ ${#tools_to_include[@]} -eq 0 ]]; then
+    tools_to_include=("rtk" "qmd" "graphify")
   fi
 
   local unique_tool_ins=()

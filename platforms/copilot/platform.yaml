@@ -1,8 +1,0 @@
-platform: copilot
-destination: .github/copilot-instructions.md
-marker:
-  start: "<!-- hub:copilot:start -->"
-  end: "<!-- hub:copilot:end -->"
-header: |
-  > [!NOTE]
-  > Managed by hub (agentic-instructions). Edit freely outside markers.

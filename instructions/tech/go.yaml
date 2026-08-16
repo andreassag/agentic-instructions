@@ -1,0 +1,4 @@
+antigravity:
+  trigger: glob
+  glob: "*.go,**/*.go,go.mod,go.sum"
+  description: Go (Golang) technical guidelines, package architecture, error handling, and service lifecycle.

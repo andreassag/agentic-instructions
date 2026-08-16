@@ -1,0 +1,4 @@
+antigravity:
+  trigger: glob
+  glob: "*.nf,**/*.nf,nextflow.config,conf/*.config"
+  description: Nextflow DSL2 pipeline guidelines, process definitions, and channel dataflow.

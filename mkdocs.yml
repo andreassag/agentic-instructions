@@ -1,0 +1,60 @@
+site_name: Agentic Instructions
+site_description: Production-grade developer instructions, multi-agent workflows, scoped rules, and skill execution harnesses.
+site_author: Andreas Solberg Sagen
+site_url: https://github.com/andreassag/agentic-instructions
+repo_url: https://github.com/andreassag/agentic-instructions
+repo_name: andreassag/agentic-instructions
+
+theme:
+  name: material
+  language: en
+  palette:
+    # Light mode
+    - scheme: default
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - scheme: slate
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.action.edit
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Overview: index.md
+  - Getting Started: getting-started.md
+  - CLI Reference: cli.md
+  - Profiles Catalog: profiles.md
+  - Subagent Roles: agents.md
+  - Workflows & Commands: workflows.md
+  - Scoped Rules: rules.md
+  - Skills & Scripts: skills.md
+  - Tool Proxies: tools.md
+  - Contributing: contributing.md

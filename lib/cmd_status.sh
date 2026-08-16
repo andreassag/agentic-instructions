@@ -12,15 +12,20 @@ cmd_status() {
     esac
   done
 
-  [[ -f "$state_file" ]] || { fatal "Hub is not initialized in this project. Run: hub init"; }
+  [[ -f "$state_file" ]] || fatal "Hub is not initialized in this project. Run: hub init"
 
   if [[ $json_out -eq 1 ]]; then
     cat "$state_file"
     return 0
   fi
 
+  local init_at profile platforms
+  init_at=$(jq -r '.initialized_at // "unknown"' "$state_file" 2>/dev/null || echo "unknown")
+  profile=$(jq -r '.profile // .agent // "none"' "$state_file" 2>/dev/null || echo "none")
+  platforms=$(jq -r 'if .platforms then (.platforms | join(", ")) else "antigravity" end' "$state_file" 2>/dev/null || echo "antigravity")
+
   echo "Hub Status:"
-  echo "  Initialized at: $(jq -r '.initialized_at // "unknown"' "$state_file")"
-  echo "  Agent:          $(jq -r '.agent // "none"' "$state_file")"
-  echo "  Platforms:      $(jq -r '.platforms | join(", ")' "$state_file")"
+  echo "  Initialized at: $init_at"
+  echo "  Profile:        $profile"
+  echo "  Platforms:      $platforms"
 }

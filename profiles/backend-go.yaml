@@ -1,0 +1,25 @@
+name: backend-go
+version: 1.0.0
+description: Agent for backend service and CLI development in Go (Golang).
+instructions:
+  - tech/go.md
+  - tech/bash.md
+  - tech/docker.md
+skills:
+  - git-workflow/commit-lint.sh
+  - code-linting/go.sh
+  - code-formatting/go.sh
+  - test-runner/go.sh
+  - dependency-management/go.sh
+  - secret-scanning/secret-scan.sh
+  - api-patterns
+  - database-design
+  - clean-code
+  - systematic-debugging
+  - architecture
+  - code-linting
+  - verify-changes
+tools:
+  - rtk
+  - qmd
+  - graphify
