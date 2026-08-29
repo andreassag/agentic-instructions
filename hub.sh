@@ -48,7 +48,7 @@ USAGE:
   hub init [flags]
 
 FLAGS:
-  --profile NAME     Stack profile to initialize (e.g. backend-go, systems-rust, ml-python)
+  --profile NAME     Stack profile to initialize (e.g. backend-go-engineer, systems-rust, ml-python)
   --platform NAME    Target platform (default: antigravity)
   --force            Overwrite existing configurations and ignore content hashes
   -h, --help         Show this help message
@@ -56,7 +56,7 @@ FLAGS:
 
 EXAMPLES:
   hub init --profile systems-rust
-  hub init --profile backend-go
+  hub init --profile backend-go-engineer
   hub init --profile ml-python --force
   hub init --help-all
 EOF
@@ -109,9 +109,9 @@ FLAGS:
   --help-all         Show this help message along with all available profiles
 
 EXAMPLES:
-  hub load backend-go
+  hub load backend-go-engineer
   hub load ml-python --force
-  hub load r-biostats
+  hub load r-biostatistician
   hub load --help-all
 EOF
       if [[ $is_all -eq 1 ]]; then

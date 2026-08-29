@@ -1,6 +1,6 @@
-name: data-python
+name: python-biocomputation-scientist
 version: 1.0.0
-description: Data engineering and analysis agent using Python with pipeline context.
+description: Python scripting agent for biological data analysis — Biopython, pandas, and bioinformatics tooling.
 instructions:
   - tech/python.md
   - tech/bash.md
@@ -14,8 +14,6 @@ skills:
   - secret-scanning/secret-scan.sh
   - python-patterns
   - clean-code
-  - database-design
-  - performance-profiling
   - systematic-debugging
 tools:
   - rtk

@@ -29,13 +29,13 @@ hub init --profile <name> [--platform <platform>] [--force]
 ```
 
 **Flags:**
-- `--profile <name>` *(Required)*: Profile manifest name (e.g. `backend-go`, `full-stack-ts`, `systems-rust`).
+- `--profile <name>` *(Required)*: Profile manifest name (e.g. `backend-go-engineer`, `full-stack-ts`, `systems-rust`).
 - `--platform <platform>`: Target assistant platform (default: `antigravity`).
 - `--force`: Force initialization even if lock or existing files are present.
 
 **Example:**
 ```bash
-hub init --profile backend-go
+hub init --profile backend-go-engineer
 ```
 
 ---

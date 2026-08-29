@@ -25,7 +25,7 @@ echo "build/" >> .gitignore
 initial_gitignore=$(cat .gitignore)
 
 # 2. Init profile
-"$HUB_HOME/hub.sh" init --profile backend-go >/dev/null 2>&1
+"$HUB_HOME/hub.sh" init --profile backend-go-engineer >/dev/null 2>&1
 
 # Verify .gitignore was NOT modified
 current_gitignore=$(cat .gitignore)

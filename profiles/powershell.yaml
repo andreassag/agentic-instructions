@@ -1,0 +1,21 @@
+name: powershell
+version: 1.0.0
+description: PowerShell scripting, module automation, and systems administration agent.
+instructions:
+  - tech/powershell.md
+  - tech/bash.md
+  - tech/docker.md
+skills:
+  - git-workflow/commit-lint.sh
+  - code-linting/powershell.sh
+  - code-formatting/powershell.sh
+  - test-runner/powershell.sh
+  - secret-scanning/secret-scan.sh
+  - clean-code
+  - systematic-debugging
+  - architecture
+  - verify-changes
+tools:
+  - rtk
+  - qmd
+  - graphify

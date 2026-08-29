@@ -1,8 +1,9 @@
-name: backend-go
+name: full-stack-golang-engineer
 version: 1.0.0
-description: Agent for backend service and CLI development in Go (Golang).
+description: Full-stack Go engineer agent for web UI, backend services, and CLI development.
 instructions:
   - tech/go.md
+  - tech/typescript.md
   - tech/bash.md
   - tech/docker.md
 skills:
@@ -11,13 +12,21 @@ skills:
   - code-formatting/go.sh
   - test-runner/go.sh
   - dependency-management/go.sh
+  - code-linting/ts.sh
+  - code-formatting/ts.sh
+  - test-runner/ts.sh
+  - dependency-management/ts.sh
   - secret-scanning/secret-scan.sh
+  - nextjs-react-expert
+  - frontend-architecture
+  - frontend-design
+  - tailwind-patterns
   - api-patterns
   - database-design
+  - webapp-testing
   - clean-code
   - systematic-debugging
   - architecture
-  - code-linting
   - verify-changes
 tools:
   - rtk

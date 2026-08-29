@@ -56,7 +56,7 @@ Navigate to any Git repository and initialize a profile tailored to your stack:
 cd /path/to/your/project
 
 # Example: Initialize Go backend profile
-hub init --profile backend-go
+hub init --profile backend-go-engineer
 
 # Example: Initialize TypeScript web profile
 hub init --profile full-stack-ts

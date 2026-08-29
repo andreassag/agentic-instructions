@@ -8,15 +8,17 @@ Profiles combine technical coding guidelines, specialized subagents, and modular
 
 | Profile Name | Description | Key Technologies |
 |---|---|---|
-| `backend-go` | High-performance Go backend services and CLI tools | Go, Docker, Bash |
+| `backend-go-engineer` | High-performance Go backend services and CLI tools | Go, Docker, Bash |
+| `full-stack-golang-engineer` | Full-stack Go engineer agent for web UI, backend services, and CLI development | Go, TypeScript, React, Docker |
+| `full-stack-python-engineer` | Full-stack Python engineer agent for web frontend, backend APIs, and services | Python, TypeScript, React, Docker |
 | `full-stack-ts` | TypeScript/Node web development and REST APIs | TypeScript, Bash, Docker |
 | `systems-rust` | Systems engineering, CLI utilities, and concurrency | Rust, Bash |
-| `data-python` | Python data processing, pipelines, and analytics | Python, Bash |
+| `python-data-scientist` | Python data processing, pipelines, and analytics | Python, Bash |
 | `ml-python` | Machine learning, experiment tracking, and modeling | Python, PyTorch, MLflow |
-| `python-bio` | Computational biology, sequence analysis, and Biopython | Python, Biopython |
+| `python-biocomputation-scientist` | Computational biology, sequence analysis, and Biopython | Python, Biopython |
 | `bioinformatics-nextflow` | Scalable Nextflow DSL2 pipelines and containers | Nextflow, Docker, Bash |
-| `r-biostats` | Statistical genetics and Bioconductor workflows | R, Bioconductor, renv |
-| `r-sciviz` | Scientific publication graphics and data visualization | R, ggplot2, patchwork |
+| `r-biostatistician` | Bioinformatics statistics and scientific data visualization in R | R, Bioconductor, ggplot2, renv |
+| `powershell` | PowerShell scripting, module automation, and systems administration | PowerShell, PSScriptAnalyzer, Pester |
 | `security-audit` | Codebase security review, secret scanning, and SAST | SAST, Semgrep, Gitleaks |
 | `docs-writer` | Technical documentation, architecture specs, ADRs | Markdown, MkDocs |
 
@@ -27,7 +29,7 @@ Profiles combine technical coding guidelines, specialized subagents, and modular
 Each profile is defined in `profiles/<name>.yaml`:
 
 ```yaml
-name: backend-go
+name: backend-go-engineer
 version: 1.0.0
 description: High-performance Go backend services, CLI tools, and containerized microservices.
 

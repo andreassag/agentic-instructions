@@ -21,7 +21,7 @@ cd "$TMP_TEST_DIR"
 git init -q
 
 # Test profiles
-PROFILES=("backend-go" "full-stack-ts" "systems-rust" "bioinformatics-nextflow" "data-python" "r-biostats")
+PROFILES=("backend-go-engineer" "full-stack-ts" "systems-rust" "bioinformatics-nextflow" "python-data-scientist" "python-biocomputation-scientist" "r-biostatistician" "powershell" "full-stack-golang-engineer" "full-stack-python-engineer")
 
 for profile in "${PROFILES[@]}"; do
   echo "  -- Testing Profile: $profile --"

@@ -10,7 +10,7 @@
 - **🤖 7 Core Subagent Roles (`.agents/agents/`)**: Specialized autonomous personas (`pre-planner`, `feature-coder`, `tdd-driver`, `repro-debugger`, `refactor-cleaner`, `pr-preflight`, `orchestrator`).
 - **⚡ Token-Optimized CLI Proxies (`rtk`, `qmd`, `graphify`)**: 60-90% token compression on tool outputs and instant AST/semantic dependency queries.
 - **🛠️ Executable Skills (`.agents/skills/`)**: Pre-packaged, runnable bash workflows for testing, linting, formatting, dependency auditing, and Git hygiene.
-- **📦 11 Out-of-the-Box Profiles**: Tailored stacks for Go, Rust, Python, TypeScript, Nextflow DSL2, R Biostatistics, Machine Learning, Security Auditing, and Technical Writing.
+- **📦 13 Out-of-the-Box Profiles**: Tailored stacks for Go, Rust, Python, TypeScript, Nextflow DSL2, R Biostatistics, Machine Learning, PowerShell, Full-Stack (Go/Python/TS), Security Auditing, and Technical Writing.
 
 ---
 
@@ -38,7 +38,7 @@ graph TD
 ├── hub.sh                  # Main CLI entrypoint
 ├── install.sh              # One-step installer
 ├── mkdocs.yml              # Documentation system configuration
-├── profiles/               # Stack profile manifests (11 curated profiles)
+├── profiles/               # Stack profile manifests (13 curated profiles)
 ├── instructions/           # Composable instruction fragments
 │   ├── tech/               # Plain markdown language guides + companion .yaml configs
 │   └── tools/              # Token-dense tool guides (rtk, qmd, graphify) + .yaml configs

@@ -11,7 +11,7 @@ Rules use YAML frontmatter to define when and how they are injected into the age
 | Trigger | Description | Usage |
 |---|---|---|
 | `always_on` | Injected unconditionally into every agent context | Core protocol, universal safety rules, request routing, tool proxies (`rtk`, `qmd`, `graphify`) |
-| `glob` | Injected dynamically when files matching the glob pattern are read or edited | Language guidelines (`go`, `rust`, `python`, `typescript`, `docker`, `bash`, `nextflow`, `r`, `cpp`) and UI design rules |
+| `glob` | Injected dynamically when files matching the glob pattern are read or edited | Language guidelines (`go`, `rust`, `python`, `typescript`, `docker`, `bash`, `powershell`, `nextflow`, `r`, `cpp`) and UI design rules |
 | `model_decision` | Injected on-demand when the model decides it is relevant | Code writing rules, quick reference lookups |
 | `manual` | Injected only when explicitly referenced by the user | Manual checklists and runbooks |
 

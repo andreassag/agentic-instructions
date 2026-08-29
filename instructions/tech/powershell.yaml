@@ -1,0 +1,4 @@
+antigravity:
+  trigger: glob
+  glob: "*.ps1,**/*.ps1,*.psm1,**/*.psm1,*.psd1,**/*.psd1"
+  description: PowerShell technical guidelines, strict error handling ($ErrorActionPreference = 'Stop'), CmdletBinding, and module architecture.

@@ -17,7 +17,7 @@ Production-grade developer instructions, multi-agent workflows, scoped rules, an
 - **🤖 7 Core Subagents (`.agents/agents/`)** — Autonomous personas: `pre-planner`, `feature-coder`, `tdd-driver`, `repro-debugger`, `refactor-cleaner`, `pr-preflight`, `orchestrator`.
 - **🛠️ Executable Skills (`.agents/skills/`)** — Runnable bash workflows for testing, linting, formatting, dependency auditing, and Git hygiene.
 - **⚡ Token-Optimized CLI Proxies (`rtk`, `qmd`, `graphify`)** — 60-90% token compression on tool outputs and instant AST/semantic dependency queries.
-- **📦 11 Out-of-the-Box Profiles** — Go, Rust, Python, TypeScript, Nextflow DSL2, R Biostatistics, Machine Learning, Security Auditing, and Docs.
+- **📦 13 Out-of-the-Box Profiles** — Go, Rust, Python, TypeScript, Nextflow DSL2, R Biostatistics, Machine Learning, PowerShell, Full-Stack (Go/Python/TS), Security Auditing, and Docs.
 
 Everything is deployed one-way: changes flow from this repo → into downstream projects with zero merge conflicts.
 
@@ -39,7 +39,7 @@ curl -fsSL https://raw.githubusercontent.com/andreassag/agentic-instructions/mai
 
 ```bash
 # In any git repository:
-hub init --profile backend-go
+hub init --profile backend-go-engineer
 
 # Check loaded profile and state
 hub status
@@ -68,18 +68,20 @@ agentic-instructions/
 ├── CONTRIBUTING.md               # Contribution guidelines
 ├── SECURITY.md                   # Security policy
 │
-├── profiles/                     # Stack profile manifests (11 curated profiles)
-│   ├── backend-go.yaml
-│   ├── full-stack-ts.yaml
-│   ├── systems-rust.yaml
-│   ├── data-python.yaml
-│   ├── ml-python.yaml
-│   ├── python-bio.yaml
+├── profiles/                     # Stack profile manifests (13 curated profiles)
+│   ├── backend-go-engineer.yaml
 │   ├── bioinformatics-nextflow.yaml
-│   ├── r-biostats.yaml
-│   ├── r-sciviz.yaml
+│   ├── docs-writer.yaml
+│   ├── full-stack-golang-engineer.yaml
+│   ├── full-stack-python-engineer.yaml
+│   ├── full-stack-ts.yaml
+│   ├── ml-python.yaml
+│   ├── powershell.yaml
+│   ├── python-biocomputation-scientist.yaml
+│   ├── python-data-scientist.yaml
+│   ├── r-biostatistician.yaml
 │   ├── security-audit.yaml
-│   └── docs-writer.yaml
+│   └── systems-rust.yaml
 │
 ├── instructions/                 # Instruction fragments
 │   ├── tech/                     # Plain markdown tech guidelines + companion .yaml metadata

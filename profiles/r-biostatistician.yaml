@@ -1,6 +1,6 @@
-name: r-biostats
+name: r-biostatistician
 version: 1.0.0
-description: Bioinformatics statistics agent using R — tidyverse, Bioconductor, and Nextflow integration.
+description: Bioinformatics statistics and scientific data visualization agent using R — tidyverse, Bioconductor, ggplot2 publication graphics, and Nextflow integration.
 instructions:
   - tech/r.md
   - tech/bash.md
@@ -14,6 +14,7 @@ skills:
   - secret-scanning/secret-scan.sh
   - clean-code
   - systematic-debugging
+  - verify-changes
 tools:
   - rtk
   - qmd
