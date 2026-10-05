@@ -1,0 +1,5 @@
+platform: jetbrains
+destination: .aiassistant/rules/
+
+header: |
+  < Managed by hub (agentic-instructions) — do not edit manually -->

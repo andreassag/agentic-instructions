@@ -1,21 +1,20 @@
 name: r-biostatistician
-version: 1.0.0
-description: Bioinformatics statistics and scientific data visualization agent using R — tidyverse, Bioconductor, ggplot2 publication graphics, and Nextflow integration.
-instructions:
-  - tech/r.md
-  - tech/bash.md
-  - tech/docker.md
+version: 1.1.0
+description: R biostatistician agent for clinical data analysis, statistical modelling, and reproducible research.
 skills:
-  - git-workflow/commit-lint.sh
-  - code-linting/r.sh
-  - code-formatting/r.sh
-  - test-runner/r.sh
-  - dependency-management/r.sh
-  - secret-scanning/secret-scan.sh
+  # Tech guidelines
+  - r-guidelines
+  - bash-guidelines
+  # Executable skills
+  - git-workflow
+  - code-linting
+  - code-formatting
+  - test-runner
+  - dependency-management
   - clean-code
   - systematic-debugging
   - verify-changes
-tools:
+  # Tools
   - rtk
   - qmd
   - graphify

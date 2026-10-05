@@ -149,3 +149,39 @@ Every test follows:
 ---
 
 > **Remember:** The test is the specification. If you can't write a test, you don't understand the requirement.
+
+---
+
+## /test Invocation Protocol
+
+When the `/test` command is used:
+
+```
+/test                  - Run all tests
+/test [file/feature]   - Generate tests for target
+/test coverage         - Show coverage report
+/test watch            - Run in watch mode
+```
+
+### Generating Tests
+
+1. Analyze the code — identify functions, edge cases, dependencies to mock
+2. Generate: happy path, error cases, edge cases, integration tests
+3. Use the project's existing test framework and patterns
+
+```markdown
+## [TEST] Tests: [Target]
+
+### Test Plan
+| Test Case | Type | Coverage |
+|-----------|------|----------|
+| Should create user | Unit | Happy path |
+| Should reject invalid email | Unit | Validation |
+
+### Generated Tests
+[Code block with tests]
+
+Run with: `npm test`
+```
+
+**Patterns:** Always follow Arrange-Act-Assert (AAA). One behavior per test.

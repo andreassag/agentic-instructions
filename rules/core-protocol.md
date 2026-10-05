@@ -61,6 +61,7 @@ Agent activated -> Check frontmatter "skills:" -> Read SKILL.md (INDEX) -> Read 
 - Agents: `.agents/agents/` (Project)
 - Skills: `.agents/skills/` (Project)
 - Runtime Scripts: `.agents/skills/<skill>/scripts/`
+- Rules: `.agents/rules/` (Project)
 
 ---
 

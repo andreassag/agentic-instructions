@@ -1,25 +1,25 @@
 name: systems-rust
-version: 1.0.0
-description: Agent for systems programming in Rust with CLI tooling context.
-instructions:
-  - tech/rust.md
-  - tech/bash.md
-  - tech/docker.md
+version: 1.1.0
+description: Systems programmer agent for Rust — CLI tools, embedded, performance-critical services.
 skills:
-  - git-workflow/commit-lint.sh
-  - code-linting/rust.sh
-  - code-formatting/rust.sh
-  - test-runner/rust.sh
-  - dependency-management/rust.sh
-  - secret-scanning/secret-scan.sh
+  # Tech guidelines
+  - rust-guidelines
+  - bash-guidelines
+  - docker-guidelines
+  # Executable skills
+  - git-workflow
+  - code-linting
+  - code-formatting
+  - test-runner
+  - dependency-management
+  - secret-scanning
   - rust-pro
   - clean-code
   - systematic-debugging
   - architecture
   - performance-profiling
-  - code-linting
   - verify-changes
-tools:
+  # Tools
   - rtk
   - qmd
   - graphify

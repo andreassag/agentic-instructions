@@ -109,3 +109,45 @@ pm2 logs app-name --err --lines 100
 [NO] **Assuming** - "It must be X" without proof
 [NO] **Not reproducing first** - Fixing blindly
 [NO] **Stopping at symptoms** - Not finding root cause
+
+---
+
+## /debug Invocation Protocol
+
+When the `/debug` command is used, activate DEBUG mode:
+
+1. **Gather information** — Error message, reproduction steps, expected vs actual, recent changes
+2. **Form hypotheses** — List possible causes ordered by likelihood
+3. **Investigate systematically** — Test each hypothesis using elimination
+4. **Fix and prevent** — Apply fix, explain root cause, add prevention measures
+
+```markdown
+## [INSPECT] Debug: [Issue]
+
+### 1. Symptom
+[What's happening]
+
+### 2. Information Gathered
+- Error: `[error message]`
+- File: `[filepath]`
+
+### 3. Hypotheses
+1. [Most likely cause]
+2. [Second possibility]
+
+### 4. Root Cause
+[TARGET] [Explanation]
+
+### 5. Fix
+[Code diff or explanation]
+
+### 6. Prevention
+[How to prevent recurrence]
+```
+
+**Examples:**
+```
+/debug login not working
+/debug API returns 500
+/debug form doesn't submit
+```

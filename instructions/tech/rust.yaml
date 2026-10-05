@@ -1,4 +1,0 @@
-antigravity:
-  trigger: glob
-  glob: "*.rs,**/*.rs,Cargo.toml,Cargo.lock"
-  description: Rust technical guidelines, workspace structure, error handling, and async patterns.

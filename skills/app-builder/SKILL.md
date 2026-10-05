@@ -76,3 +76,33 @@ App Builder Process:
 5. Report progress
 6. Start preview
 ```
+
+---
+
+## /create Invocation Protocol
+
+When the `/create` command is used, activate App Builder mode:
+
+1. Route through `project-planner` or `orchestrator` — NOT a lone specialist
+2. These agents load `app-builder` which provides project-detection, tech-stack selection, and template knowledge
+3. Ask Socratic questions before any implementation
+
+**Agent selection for /create:**
+- New app from scratch → `project-planner` → `orchestrator`
+- Enhancement to existing → `code-archaeologist` + appropriate specialists
+
+```markdown
+## Implementation Plan: {task-slug}
+
+### Tech Stack Selected
+[Framework, DB, Auth, etc.]
+
+### Phase 1: Foundation
+- [ ] [Task 1] -> Verify: [how to check]
+
+### Phase 2: Core Features
+- [ ] [Task 2] -> Verify: [how to check]
+
+### Done When
+- [ ] [Success criteria]
+```

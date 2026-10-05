@@ -59,15 +59,20 @@ docs(mkdocs): expand subagents architecture diagrams
 
 ## Adding or Updating Technical Guidelines
 
-1. Add or update the plain markdown guide in `instructions/tech/<language>.md`.
-2. Add or update its companion trigger configuration in `instructions/tech/<language>.yaml`:
+1. Create a new skill directory: `skills/<lang>-guidelines/SKILL.md`.
+2. Use this frontmatter template:
    ```yaml
-   antigravity:
-     trigger: glob
-     glob: "*.ext,**/*.ext"
-     description: Concise summary of guidelines.
+   ---
+   name: <lang>-guidelines
+   description: <Language> technical guidelines, conventions, and best practices.
+   when_to_use: "When working with files matching: *.ext,**/*.ext"
+   trigger: glob
+   globs: "*.ext,**/*.ext"
+   version: 1.0.0
+   ---
    ```
-3. Reference the rule in appropriate profile manifests under `profiles/*.yaml`.
+3. Add the guideline content as the body of the SKILL.md file.
+4. Reference the new skill name in appropriate profile manifests under `profiles/*.yaml`.
 
 ---
 
@@ -88,10 +93,22 @@ docs(mkdocs): expand subagents architecture diagrams
 
 ## Adding a Skill
 
-1. Create `skills/<category>/SKILL.md` with YAML frontmatter (`name` and `description`).
-2. Create `skills/<category>/<script>.sh` (must begin with `#!/usr/bin/env bash` and `set -euo pipefail`).
-3. Make the script executable: `chmod +x skills/<category>/<script>.sh`.
-4. Reference the skill script in target profiles under `profiles/*.yaml`.
+1. Create `skills/<name>/SKILL.md` with YAML frontmatter:
+   ```yaml
+   ---
+   name: <skill-name>
+   description: <What this skill does and when to use it.>
+   when_to_use: "<Trigger description for the agent>"
+   version: 1.0.0
+   # Optional: for language-guideline skills with glob-based activation:
+   # trigger: glob
+   # globs: "*.go,**/*.go,go.mod"
+   ---
+   ```
+2. Add skill content (instructions, examples, checklists) as markdown body.
+3. Optionally create `skills/<name>/scripts/<script>.sh` for runnable automation.
+4. If adding scripts: they must begin with `#!/usr/bin/env bash` and `set -euo pipefail`, and be marked executable: `chmod +x skills/<name>/scripts/<script>.sh`.
+5. Reference the skill name in target profiles under `profiles/*.yaml`.
 
 ---
 

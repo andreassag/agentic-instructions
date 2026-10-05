@@ -96,5 +96,22 @@ cmd_clean() {
       rm -rf "$target_dir/.cache/qmd"
       info "Removed .cache/qmd/ directory."
     fi
+    # Platform-specific artifacts
+    if [[ -d "$target_dir/.vibe" ]]; then
+      rm -rf "$target_dir/.vibe"
+      info "Removed .vibe/ directory."
+    fi
+    if [[ -d "$target_dir/.aiassistant" ]]; then
+      rm -rf "$target_dir/.aiassistant"
+      info "Removed .aiassistant/ directory."
+    fi
+    if [[ -d "$target_dir/.github/instructions" ]]; then
+      rm -rf "$target_dir/.github/instructions"
+      info "Removed .github/instructions/ directory."
+    fi
+    if [[ -f "$target_dir/.github/copilot-instructions.md" ]]; then
+      rm -f "$target_dir/.github/copilot-instructions.md"
+      info "Removed .github/copilot-instructions.md"
+    fi
   fi
 }

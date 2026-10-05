@@ -1,23 +1,22 @@
 name: python-data-scientist
-version: 1.0.0
-description: Data engineering and analysis agent using Python with pipeline context.
-instructions:
-  - tech/python.md
-  - tech/bash.md
-  - tech/docker.md
+version: 1.1.0
+description: Python data scientist agent — EDA, statistical analysis, visualization, and notebook-driven workflows.
 skills:
-  - git-workflow/commit-lint.sh
-  - code-linting/python.sh
-  - code-formatting/python.sh
-  - test-runner/python.sh
-  - dependency-management/python.sh
-  - secret-scanning/secret-scan.sh
+  # Tech guidelines
+  - python-guidelines
+  - bash-guidelines
+  # Executable skills
+  - git-workflow
+  - code-linting
+  - code-formatting
+  - test-runner
+  - dependency-management
+  - secret-scanning
   - python-patterns
   - clean-code
-  - database-design
-  - performance-profiling
   - systematic-debugging
-tools:
+  - verify-changes
+  # Tools
   - rtk
   - qmd
   - graphify

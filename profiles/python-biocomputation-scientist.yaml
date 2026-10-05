@@ -1,21 +1,22 @@
 name: python-biocomputation-scientist
-version: 1.0.0
-description: Python scripting agent for biological data analysis — Biopython, pandas, and bioinformatics tooling.
-instructions:
-  - tech/python.md
-  - tech/bash.md
-  - tech/docker.md
+version: 1.1.0
+description: Python-based biocomputation and bioinformatics scientist agent for genomics, proteomics, and computational biology.
 skills:
-  - git-workflow/commit-lint.sh
-  - code-linting/python.sh
-  - code-formatting/python.sh
-  - test-runner/python.sh
-  - dependency-management/python.sh
-  - secret-scanning/secret-scan.sh
+  # Tech guidelines
+  - python-guidelines
+  - bash-guidelines
+  # Executable skills
+  - git-workflow
+  - code-linting
+  - code-formatting
+  - test-runner
+  - dependency-management
+  - secret-scanning
   - python-patterns
   - clean-code
   - systematic-debugging
-tools:
+  - verify-changes
+  # Tools
   - rtk
   - qmd
   - graphify

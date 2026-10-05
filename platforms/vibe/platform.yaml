@@ -1,0 +1,7 @@
+platform: vibe
+destination: AGENTS.md
+agents_dir: .vibe/agents/
+
+header: |
+  < Managed by hub (agentic-instructions) -->
+  < Vibe reads this file as global repository instructions for all agents -->

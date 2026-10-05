@@ -1,4 +1,0 @@
-antigravity:
-  trigger: glob
-  glob: "*.sh,**/*.sh,*.bash,**/*.bash"
-  description: Bash scripting guidelines, strict error modes (set -euo pipefail), and CLI conventions.

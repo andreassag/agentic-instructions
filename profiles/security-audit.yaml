@@ -1,26 +1,23 @@
 name: security-audit
-version: 1.0.0
+version: 1.1.0
 description: Security-focused code audit agent — secret scanning, dependency vulnerabilities, SAST patterns, and hardening review.
-instructions:
-  - tech/bash.md
-  - tech/python.md
-  - tech/go.md
-  - tech/rust.md
-  - tech/docker.md
 skills:
-  - secret-scanning/secret-scan.sh
-  - dependency-management/go.sh
-  - dependency-management/rust.sh
-  - dependency-management/python.sh
-  - dependency-management/ts.sh
-  - dependency-management/r.sh
-  - git-workflow/commit-lint.sh
-  - code-linting/python.sh
-  - code-linting/go.sh
+  # Tech guidelines
+  - bash-guidelines
+  - python-guidelines
+  - go-guidelines
+  - rust-guidelines
+  - docker-guidelines
+  # Executable skills
+  - git-workflow
+  - secret-scanning
+  - dependency-management
+  - code-linting
   - vulnerability-scanner
   - red-team-tactics
   - code-review-checklist
-tools:
+  - verify-changes
+  # Tools
   - rtk
   - qmd
   - graphify

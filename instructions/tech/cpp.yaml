@@ -1,4 +1,0 @@
-antigravity:
-  trigger: glob
-  glob: "*.cpp,**/*.cpp,*.hpp,**/*.hpp,*.c,*.h,CMakeLists.txt"
-  description: C / C++ technical guidelines, C++20 standard, CMake targets, and RAII safety.

@@ -126,3 +126,44 @@ python script.py --test
 | `backend-specialist` -> API changes | curl endpoints, check responses |
 | `database-design` -> Schema changes | Run migrations, query data |
 | `test-runner` -> New tests | Run test suite, check coverage |
+
+---
+
+## /verify Invocation Protocol
+
+When the `/verify` command is used:
+
+```
+CONTEXT:
+- What to verify: $ARGUMENTS
+- If empty: verify the most recent code changes in this session
+
+WORKFLOW:
+1. IDENTIFY what changed (files, functions, behavior)
+2. DETERMINE verification method (build, test, run, curl)
+3. EXECUTE verification commands
+4. REPORT evidence of success or failure
+5. FLAG anything that couldn't be verified automatically
+
+RULES:
+1. Follow verify-changes/SKILL.md protocol
+2. "It should work" is NOT verification — run it
+3. Test error paths, not just success paths
+4. Report with actual command output as evidence
+```
+
+```
+## Verification Report
+
+### Changes Verified
+- [file/change 1]: [OK] Pass
+- [file/change 2]: [OK] Pass
+
+### Evidence
+- Build: [OK] Compiled without errors
+- Tests: [OK] [N]/[N] passing
+- Runtime: [OK] [specific verification result]
+
+### Not Verified
+- [anything that needs manual testing]
+```

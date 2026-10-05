@@ -36,8 +36,8 @@ for profile in "${PROFILES[@]}"; do
     continue
   fi
 
-  # 2. Check structure
-  if [[ -d ".agents/rules" && -d ".agents/agents" && -d ".agents/workflows" && -d ".agents/skills" && -f ".agents/state.json" ]]; then
+  # 2. Check structure — workflows/ no longer exists as of v1.1
+  if [[ -d ".agents/rules" && -d ".agents/agents" && -d ".agents/skills" && -f ".agents/state.json" ]]; then
     echo "  ✓ .agents structure valid for $profile"
     PASS=$((PASS + 1))
   else

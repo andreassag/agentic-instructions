@@ -241,3 +241,46 @@ Before deploying:
 ---
 
 > **Remember:** Every deployment is a risk. Minimize risk through preparation, not speed.
+
+---
+
+## /deploy Invocation Protocol
+
+When the `/deploy` command is used, activate DEPLOY mode using `devops-engineer` agent:
+
+### Pre-Flight Checklist (MANDATORY before any deployment)
+
+| Check | Command | Must Pass |
+|-------|---------|-----------|
+| Security scan | `python .agents/skills/vulnerability-scanner/scripts/security_scan.py .` | Yes |
+| All tests pass | Run test suite | Yes |
+| Build succeeds | Build command | Yes |
+| Secrets check | No hardcoded secrets | Yes |
+| Backup exists | Database backup taken | Yes |
+
+### 5-Phase Deployment
+
+1. **VERIFY** — Run pre-flight checks above
+2. **PREPARE** — Create deployment plan, notify stakeholders
+3. **DEPLOY** — Execute deployment with rollback plan ready
+4. **VALIDATE** — Smoke test in production
+5. **MONITOR** — Watch logs/metrics for 15 minutes post-deploy
+
+### Rollback Protocol
+
+If deployment fails:
+```bash
+# Immediate rollback
+git revert <last-good-commit>
+# Or platform-specific rollback command
+```
+
+**Output format:**
+```markdown
+## Deployment Report
+
+### Pre-Flight: [OK] All checks passed
+### Deployment: [OK] Completed at [timestamp]
+### Validation: [OK] Smoke tests passed
+### Next: Monitor for 15 min
+```

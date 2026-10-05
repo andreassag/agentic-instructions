@@ -151,3 +151,30 @@ One sentence: What are we building/fixing?
 - Adding a feature
 - Fixing a bug (if complex)
 - Refactoring multiple files
+
+---
+
+## /plan Invocation Protocol
+
+When the `/plan` command is used:
+
+1. Use the `project-planner` agent
+2. Create a `{task-slug}.md` file at the project root
+3. No code writing — only plan file generation
+4. After the plan is created, tell the user:
+
+```
+[OK] Plan created: {slug}.md in project root
+
+Next steps:
+- Review the plan
+- Run /create to start implementation
+- Or modify the plan manually
+```
+
+**Naming convention:**
+| Request | Plan File |
+|---------|-----------|
+| `/plan e-commerce site` | `ecommerce-site.md` |
+| `/plan fix auth bug` | `auth-fix.md` |
+| `/plan add dark mode` | `dark-mode.md` |

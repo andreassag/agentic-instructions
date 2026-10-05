@@ -1,0 +1,8 @@
+platform: copilot
+destination: .github/copilot-instructions.md
+rules_dir: .github/instructions/
+agents_dir: .github/instructions/
+skills_dir: .github/instructions/
+
+header: |
+  < Managed by hub (agentic-instructions) — do not edit manually -->

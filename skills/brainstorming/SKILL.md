@@ -176,3 +176,50 @@ version: 1.0.0
 | "I think" phrases | Uncertainty -> Ask instead |
 
 ---
+
+---
+
+## /brainstorm Invocation Protocol
+
+When the `/brainstorm` command is used, activate BRAINSTORM mode:
+
+1. **Understand the goal** — What problem? Who is the user? What constraints?
+2. **Generate options** — Provide at least 3 different approaches with pros/cons
+3. **Compare and recommend** — Summarize tradeoffs, give a recommendation with reasoning
+
+**No code** — this is about ideas, not implementation.
+
+```markdown
+## [THINK] Brainstorm: [Topic]
+
+### Context
+[Brief problem statement]
+
+---
+
+### Option A: [Name]
+[Description]
+
+[OK] **Pros:** [benefits]
+[NO] **Cons:** [drawbacks]
+[METRICS] **Effort:** Low | Medium | High
+
+---
+
+### Option B / C: [Name]
+[Similar structure]
+
+---
+
+## [NOTE] Recommendation
+**Option [X]** because [reasoning].
+
+What direction would you like to explore?
+```
+
+**Examples:**
+```
+/brainstorm authentication system
+/brainstorm state management for complex form
+/brainstorm database schema for social app
+```

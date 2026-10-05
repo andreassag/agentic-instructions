@@ -191,3 +191,35 @@ The coordinator must:
 - One coordinator-owned integration point.
 - Verification after integration.
 - No vendor-specific assumptions in portable `.agents` instructions.
+
+---
+
+## /orchestrate Invocation Protocol
+
+When the `/orchestrate` command is used:
+
+**MINIMUM 3 DIFFERENT AGENTS required.** Fewer agents = delegation, not orchestration.
+
+### 2-Phase Protocol
+
+**PHASE 1: PLANNING** (Sequential, no parallel)
+- Use `project-planner` to create `{task-slug}.md`
+- Optionally use `explorer-agent` for codebase discovery
+- STOP and ask for user approval before Phase 2
+
+**PHASE 2: IMPLEMENTATION** (Parallel after approval)
+- Invoke agents in parallel groups
+- Pass full context to every subagent: original request, decisions made, previous agent work
+
+```markdown
+## [ORCHESTRATE] Orchestration Report
+
+### Agents Invoked (MINIMUM 3)
+| # | Agent | Focus | Status |
+|---|-------|-------|--------|
+| 1 | project-planner | Task breakdown | [OK] |
+| 2 | ... | ... | [OK] |
+
+### Key Findings
+### Deliverables
+```

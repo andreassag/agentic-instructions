@@ -1,4 +1,0 @@
-antigravity:
-  trigger: glob
-  glob: "*.R,**/*.R,*.r,**/*.r,DESCRIPTION,renv.lock"
-  description: R technical guidelines, tidyverse idioms, renv management, and testthat testing.

@@ -1,4 +1,0 @@
-antigravity:
-  trigger: glob
-  glob: "Dockerfile*,**/Dockerfile*,docker-compose*.yml,compose*.yaml,*.def,**/*.def"
-  description: Docker and containerization guidelines, multi-stage builds, and non-root users.

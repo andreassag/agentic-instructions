@@ -1,13 +1,13 @@
 # Stack Profile Schema
 # Every profile.yaml in /profiles/ must conform to this structure.
-# Required fields: name, version, description, instructions
+# Required fields: name, version, description, skills
 
 type: object
 required:
   - name
   - version
   - description
-  - instructions
+  - skills
 
 properties:
   name:
@@ -28,21 +28,13 @@ properties:
     type: string
     description: "Optional: name of another profile to inherit from"
 
-  instructions:
-    type: array
-    items:
-      type: string
-    description: "Instruction file paths relative to instructions/ (e.g. tech/go.md, tech/docker.md)"
-
   skills:
     type: array
     items:
       type: string
-    description: "Skill script paths relative to skills/ (e.g. git/commit-lint.sh)"
-
-  tools:
-    type: array
-    items:
-      type: string
-      enum: [rtk, graphify, qmd]
-    description: "List of enabled tools for this profile (e.g. rtk, qmd, graphify)"
+    description: >
+      Skills to deploy for this profile. Each entry is a skill directory name
+      (e.g. go-guidelines, rtk, clean-code, test-runner). The entire skill
+      subfolder is deployed as a unit. Tool skills (rtk, qmd, graphify) are
+      also listed here; tech-guideline skills (go-guidelines, python-guidelines,
+      etc.) replace the former 'instructions' array.

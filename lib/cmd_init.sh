@@ -2,8 +2,9 @@
 source "$HUB_HOME/lib/rules_deploy.sh"
 source "$HUB_HOME/lib/skills_deploy.sh"
 source "$HUB_HOME/lib/agents_deploy.sh"
-source "$HUB_HOME/lib/workflows_deploy.sh"
 source "$HUB_HOME/lib/tools_deploy.sh"
+source "$HUB_HOME/lib/platform_write.sh"
+source "$HUB_HOME/lib/platform_clean.sh"
 
 cmd_init() {
   local profile_name="" platform_arg="" force=0
@@ -56,12 +57,16 @@ cmd_init() {
   local state_file="$target_dir/.agents/state.json"
 
   deploy_rules "$manifest" "$target_dir"
-  for p in "${platforms[@]}"; do
-    deploy_skills "$manifest" "$p" "$target_dir"
-  done
+  deploy_skills "$manifest" "$target_dir"
   deploy_agents "$manifest" "$target_dir"
-  deploy_workflows "$manifest" "$target_dir"
-  deploy_tools "$manifest" "$target_dir"
+  init_tools "$manifest" "$target_dir"
+
+  # Write platform-specific files (Copilot, Vibe, JetBrains, etc.)
+  for platform in "${platforms[@]}"; do
+    local platform_config="$HUB_HOME/platforms/$platform/platform.yaml"
+    [[ -f "$platform_config" ]] || { warn "Unknown platform '$platform', skipping."; continue; }
+    write_platform_file "$platform" "" "$target_dir"
+  done
 
   local iso_date; iso_date=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
   ensure_dir "$target_dir/.agents"

@@ -202,7 +202,7 @@ IS_LOCAL_REPO=0
 SCRIPT_DIR=""
 if [[ -n "${BASH_SOURCE[0]:-}" && -f "${BASH_SOURCE[0]}" ]]; then
   SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" 2>/dev/null && pwd)"
-  if [[ -n "$SCRIPT_DIR" && -f "$SCRIPT_DIR/hub.sh" && -d "$SCRIPT_DIR/agents" && -d "$SCRIPT_DIR/instructions" ]]; then
+  if [[ -n "$SCRIPT_DIR" && -f "$SCRIPT_DIR/hub.sh" && -d "$SCRIPT_DIR/skills" && -d "$SCRIPT_DIR/profiles" ]]; then
     IS_LOCAL_REPO=1
   fi
 fi

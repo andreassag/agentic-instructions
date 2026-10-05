@@ -4,5 +4,9 @@ extra_destinations:
   - .agents/agents/
   - .agents/skills/
 
+marker:
+  start: "<!-- hub:start -->"
+  end: "<!-- hub:end -->"
+
 header: |
   # Managed by hub (agentic-instructions)

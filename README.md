@@ -13,11 +13,13 @@ Production-grade developer instructions, multi-agent workflows, scoped rules, an
 
 `agentic-instructions` (`hub`) manages:
 
-- **🎯 Scoped Rules (`.agents/rules/`)** — File-glob-triggered coding and architecture rulesets (`always_on` for global tools, `glob` for language guidelines).
-- **🤖 7 Core Subagents (`.agents/agents/`)** — Autonomous personas: `pre-planner`, `feature-coder`, `tdd-driver`, `repro-debugger`, `refactor-cleaner`, `pr-preflight`, `orchestrator`.
-- **🛠️ Executable Skills (`.agents/skills/`)** — Runnable bash workflows for testing, linting, formatting, dependency auditing, and Git hygiene.
+- **🎯 Scoped Rules (`.agents/rules/`)** — Always-on and file-glob-triggered coding and architecture rulesets.
+- **🤖 Core Subagents (`.agents/agents/`)** — Autonomous personas: `orchestrator`, `project-planner`, `backend-specialist`, `frontend-specialist`, `debugger`, `devops-engineer`, `test-engineer`, and more.
+- **🛠️ Executable Skills (`.agents/skills/`)** — Runnable bash workflows for testing, linting, formatting, dependency auditing, Git hygiene, and more.
+- **📐 Tech-Guideline Skills** — Language-specific guidelines (Go, Python, TypeScript, Rust, Bash, Docker, C++, R, Nextflow, PowerShell) deployed as glob-triggered skills.
 - **⚡ Token-Optimized CLI Proxies (`rtk`, `qmd`, `graphify`)** — 60-90% token compression on tool outputs and instant AST/semantic dependency queries.
-- **📦 13 Out-of-the-Box Profiles** — Go, Rust, Python, TypeScript, Nextflow DSL2, R Biostatistics, Machine Learning, PowerShell, Full-Stack (Go/Python/TS), Security Auditing, and Docs.
+- **📦 13 Out-of-the-Box Profiles** — Go, Rust, Python, TypeScript, Nextflow DSL2, R Biostatistics, ML, PowerShell, Full-Stack (Go/Python/TS), Security Auditing, and Docs.
+- **🌐 Multi-Platform Deployment** — Deploy to Antigravity, VSCode Copilot, Mistral Vibe, and JetBrains AI Assistant from the same profile.
 
 Everything is deployed one-way: changes flow from this repo → into downstream projects with zero merge conflicts.
 
@@ -38,8 +40,17 @@ curl -fsSL https://raw.githubusercontent.com/andreassag/agentic-instructions/mai
 ## Quick Start
 
 ```bash
-# In any git repository:
+# In any git repository — deploy to Antigravity (default):
 hub init --profile backend-go-engineer
+
+# Deploy for VSCode Copilot:
+hub init --profile backend-go-engineer --platform copilot
+
+# Deploy for Mistral Vibe:
+hub init --profile backend-go-engineer --platform vibe
+
+# Deploy for JetBrains AI Assistant:
+hub init --profile backend-go-engineer --platform jetbrains
 
 # Check loaded profile and state
 hub status
@@ -87,26 +98,32 @@ agentic-instructions/
 │   ├── tech/                     # Plain markdown tech guidelines + companion .yaml metadata
 │   └── tools/                    # Tool guides (rtk, qmd, graphify) + companion .yaml metadata
 │
-├── agents/                       # Generic subagent definitions with frontmatter
-│   ├── orchestrator/
-│   ├── pre-planner/
-│   ├── feature-coder/
-│   ├── tdd-driver/
-│   ├── repro-debugger/
-│   ├── refactor-cleaner/
-│   └── pr-preflight/
+├── agents/                       # Subagent definitions with YAML frontmatter
+│   ├── orchestrator.md
+│   ├── backend-specialist.md
+│   └── ...                       # (15+ agent roles)
 │
-├── skills/                       # Runnable bash skill scripts with SKILL.md definitions
-│   ├── test/
-│   ├── lint/
-│   ├── format/
-│   ├── deps/
-│   ├── git/
-│   ├── docs/
-│   └── security/
+├── skills/                       # Skill directories — each contains SKILL.md + optional scripts/
+│   ├── go-guidelines/            # Tech guideline skills (glob-triggered)
+│   ├── python-guidelines/
+│   ├── typescript-guidelines/
+│   ├── bash-guidelines/
+│   ├── ...                       # (10 language guidelines total)
+│   ├── rtk/                      # Tool skills
+│   ├── qmd/
+│   ├── graphify/
+│   ├── clean-code/               # Executable skills
+│   ├── test-runner/
+│   ├── verify-changes/
+│   ├── systematic-debugging/
+│   ├── app-builder/
+│   └── ...                       # (30+ skills total)
 │
 ├── platforms/                    # Deployment platform drivers
-│   └── antigravity/
+│   ├── antigravity/              # Google Antigravity / AGY
+│   ├── copilot/                  # VSCode GitHub Copilot
+│   ├── vibe/                     # Mistral Vibe
+│   └── jetbrains/                # JetBrains AI Assistant
 │
 ├── docs/                         # MkDocs documentation site
 └── tests/                        # Modular CI test suite

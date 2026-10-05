@@ -1,3 +1,0 @@
-antigravity:
-  trigger: always_on
-  description: Graphify AST and semantic code knowledge graph query and maintenance rules.

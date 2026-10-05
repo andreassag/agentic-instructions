@@ -1,21 +1,19 @@
 name: powershell
-version: 1.0.0
-description: PowerShell scripting, module automation, and systems administration agent.
-instructions:
-  - tech/powershell.md
-  - tech/bash.md
-  - tech/docker.md
+version: 1.1.0
+description: PowerShell scripting and automation agent for Windows, Azure, and cross-platform DevOps workflows.
 skills:
-  - git-workflow/commit-lint.sh
-  - code-linting/powershell.sh
-  - code-formatting/powershell.sh
-  - test-runner/powershell.sh
-  - secret-scanning/secret-scan.sh
+  # Tech guidelines
+  - powershell-guidelines
+  - bash-guidelines
+  # Executable skills
+  - git-workflow
+  - code-linting
+  - code-formatting
+  - secret-scanning
   - clean-code
   - systematic-debugging
-  - architecture
   - verify-changes
-tools:
+  # Tools
   - rtk
   - qmd
   - graphify

@@ -13,7 +13,9 @@ description: Apply when you need a fast lookup of which agents, skills, or valid
 ## Agents & Skills
 
 - **Core Agents**: `orchestrator`, `project-planner`, `security-auditor` (Security), `backend-specialist` (API/DB), `frontend-specialist` (UI/UX), `debugger`, `devops-engineer`, `test-engineer`
-- **Key Skills**: `clean-code`, `brainstorming`, `app-builder`, `frontend-design`, `plan-writing`, `intelligent-routing`, `code-linting`, `test-runner`, `verify-changes`
+- **Tech Guidelines**: `go-guidelines`, `python-guidelines`, `typescript-guidelines`, `rust-guidelines`, `bash-guidelines`, `docker-guidelines`, `cpp-guidelines`, `r-guidelines`, `nextflow-guidelines`, `powershell-guidelines`
+- **Tool Skills**: `rtk`, `qmd`, `graphify`
+- **Key Skills**: `clean-code`, `brainstorming`, `app-builder`, `frontend-design`, `plan-writing`, `intelligent-routing`, `code-linting`, `test-runner`, `verify-changes`, `systematic-debugging`, `enhance`, `tdd-workflow`
 
 ## Key Scripts
 
